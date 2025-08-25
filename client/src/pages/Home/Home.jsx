@@ -1,12 +1,14 @@
-import React from 'react'
-import HomeHeroSection from '../../component/HeroSections/HomeHeroSection'
+import React from "react";
+import HomeHeroSection from "../../component/HeroSections/HomeHeroSection";
+import FeaturedCar from "../../component/Features/FeaturedCar";
 
 const Home = () => {
   return (
     <section>
-      <HomeHeroSection/>
+      <HomeHeroSection />
+      <FeaturedCar />
     </section>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;
