@@ -19,8 +19,8 @@ const FeaturedCar = () => {
       {/* card component */}
       <main className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-20">
         {dummyCarData?.slice(0, 6).map((car) => (
-          <div key={car?.id}>
-            <CarCard car={car} />
+          <div key={car?._id}>
+            <CarCard key={car?._id} car={car} />
           </div>
         ))}
       </main>

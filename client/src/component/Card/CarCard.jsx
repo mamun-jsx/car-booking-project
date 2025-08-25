@@ -9,7 +9,7 @@ const CarCard = ({ car }) => {
         navigate(`/car-details/${car._id}`);
         scrollTo(0, 0);
       }}
-      className="card bg-base-100 shadow-sm h-full"
+      className="card  bg-base-100 shadow-sm h-full pointer"
     >
       {/* Car Image */}
       <figure className="h-48 overflow-hidden">
@@ -70,7 +70,7 @@ const CarCard = ({ car }) => {
               navigate(`/car-details/${car?._id}`);
               scrollTo(0, 0);
             }}
-            className="btn btn-primary btn-sm rounded-full"
+            className="btn btn-primary bg-primary transition-all bg-hover btn-sm rounded-full"
           >
             Book Now
           </button>

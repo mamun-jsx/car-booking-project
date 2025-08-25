@@ -6,7 +6,7 @@ const HomeHeroSection = () => {
   return (
     <section className="h-screen flex flex-col justify-center items-center gap-14 bg-light text-center">
       {" "}
-      <h1 className="text-4xl md:text-5xl font-semibold">
+    <h1 className="text-4xl md:text-5xl font-semibold">
         All Types Of Car On Rent
       </h1>
       {/* form input */}

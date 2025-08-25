@@ -27,3 +27,6 @@
 .pointer:hover {
   cursor: pointer;
 }
+.bg-hover:hover {
+  background-color: #3b38a0;
+}
