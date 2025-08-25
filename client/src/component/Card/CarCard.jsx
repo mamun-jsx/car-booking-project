@@ -1,8 +1,16 @@
+import { useNavigate } from "react-router-dom";
 import { assets } from "../../assets/assets";
 
 const CarCard = ({ car }) => {
+  const navigate = useNavigate();
   return (
-    <div className="card bg-base-100 shadow-sm h-full">
+    <div
+      onClick={() => {
+        navigate(`/car-details/${car._id}`);
+        scrollTo(0, 0);
+      }}
+      className="card bg-base-100 shadow-sm h-full"
+    >
       {/* Car Image */}
       <figure className="h-48 overflow-hidden">
         <img
@@ -57,7 +65,13 @@ const CarCard = ({ car }) => {
           <div className="badge badge-outline text-base font-medium px-3 py-2">
             ${car?.pricePerDay}/day
           </div>
-          <button className="btn btn-primary btn-sm rounded-full">
+          <button
+            onClick={() => {
+              navigate(`/car-details/${car?._id}`);
+              scrollTo(0, 0);
+            }}
+            className="btn btn-primary btn-sm rounded-full"
+          >
             Book Now
           </button>
         </div>
