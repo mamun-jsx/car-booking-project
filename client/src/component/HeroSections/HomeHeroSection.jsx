@@ -4,7 +4,8 @@ import { assets, cityList } from "../../assets/assets";
 const HomeHeroSection = () => {
   const [pickupLocation, setPickupLocation] = useState("");
   return (
-    <section className="h-screen  flex flex-col items-center gap-14 bg-light text-center">
+    <section className="h-screen flex flex-col justify-center items-center gap-14 bg-light text-center">
+      {" "}
       <h1 className="text-4xl md:text-5xl font-semibold">
         All Types Of Car On Rent
       </h1>
