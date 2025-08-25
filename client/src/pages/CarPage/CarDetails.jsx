@@ -9,11 +9,16 @@ const CarDetails = () => {
   const navigate = useNavigate();
   const [car, setCar] = useState(null);
 
+  // ! Form input to send data to backend 
+  const handleFormSubmit = async (e) => {
+    e.preventDefault();
+    console.log("hello world");
+  };
   useEffect(() => {
     const filtered = dummyCarData?.find((car) => car?._id === id);
     setCar(filtered);
   }, [id]);
-  console.log(car, "   - car object");
+
   return car ? (
     <section className="px-6 md:px-16 lg:px-24 xl:px-32 mt-16">
       <button
@@ -105,19 +110,22 @@ const CarDetails = () => {
         </div>
         {/* RIGHT : Booking Form  */}
 
-        <form className="shadow-lg h-max sticky top-18 rounded-xl p-6 space-y-6 text-gray-500">
-          <p className="flex items-center justify-between text-2xl text-gray-800 font-semibold">
+        <form
+          onSubmit={handleFormSubmit}
+          className="shadow-lg h-max sticky top-18 rounded-xl p-6 space-y-6 text-gray-500"
+        >
+          <p className="flex secondary-color items-center justify-between text-2xl text-gray-800 font-semibold">
             ${car?.pricePerDay}{" "}
-            <span className="font-normal text-sm text-gray-400 ">
-              / Per Day{" "}
-            </span>
+            <span className="font-normal text-sm text-light ">/ Per Day </span>
           </p>
           <hr className="border border-[#b2b0e8] my-6" />
 
           {/* form Input values  */}
           <div className="flex flex-col gap-2">
             {/* ----------------------Pickup Date-------------------------------- */}
-            <label htmlFor="pickup-date">Pickup Date</label>
+            <label htmlFor="pickup-date " className="text-light">
+              Pickup Date
+            </label>
             <input
               id="pickup-date"
               min={new Date().toISOString().split("T")[0]}
@@ -128,7 +136,9 @@ const CarDetails = () => {
           </div>
           {/* -------------------------Return Date----------------------------- */}
           <div className="flex flex-col gap-2">
-            <label htmlFor="return-date">Return Date</label>
+            <label htmlFor="return-date" className="text-light">
+              Return Date
+            </label>
             <input
               id="return-date"
               min={new Date().toISOString().split("T")[0]}
@@ -140,6 +150,10 @@ const CarDetails = () => {
           <button className="text-white bg-primary w-full font-medium rounded-xl pointer bg-hover transition-all py-3 ">
             Book Now
           </button>
+          {/*  */}
+          <p className="text-center text-sm  secondary-color">
+            No credit card required to reserve
+          </p>
         </form>
       </div>
     </section>
