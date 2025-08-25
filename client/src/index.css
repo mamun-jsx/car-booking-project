@@ -24,3 +24,6 @@
 .text-light {
   color: #b2b0e8;
 }
+.pointer:hover {
+  cursor: pointer;
+}

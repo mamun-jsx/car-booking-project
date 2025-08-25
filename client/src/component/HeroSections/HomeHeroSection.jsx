@@ -15,6 +15,8 @@ const HomeHeroSection = () => {
       >
         {/* content wrapper  */}
         <div className="flex flex-col md:flex-row items-start md:items-center gap-10 min-md:ml-8">
+          {/* 👇👇👇👇 This div is select location area 👇👇👇 */}
+
           <div className="flex flex-col items-start gap-2">
             <select
               required
@@ -35,6 +37,41 @@ const HomeHeroSection = () => {
               {pickupLocation ? pickupLocation : "Please select location"}
             </p>
           </div>
+
+          {/* 👇👇👇👇 This div is (STARTING) date time area 👇👇👇 */}
+
+          <div className="flex flex-col items-start gap-2">
+            <label htmlFor="pickup-date">Pick-up Date</label>
+            <input
+              required
+              type="date"
+              id="pickup-date"
+              value={new Date().toISOString().split("T")[0]} // ✅ sets today's date
+              min={new Date().toISOString().split("T")[0]} // ✅ restricts past dates
+              className="text-sm text-gray-500  rounded p-2"
+            />
+          </div>
+
+          {/* 👇 Return Date field 👇 */}
+          <div className="flex flex-col items-start gap-2">
+            <label htmlFor="return-date">Return Date</label>
+            <input
+              type="date"
+              id="return-date"
+              min={new Date().toISOString().split("T")[0]} // ✅ return can’t be before today
+              className="text-sm text-gray-500  rounded p-2"
+            />
+          </div>
+
+          {/* Search Button  */}
+          <button className="flex gap-2  pointer text-white bg-primary px-6  rounded-full py-2">
+            <img
+              className="brightness-200"
+              src={assets.search_icon}
+              alt="search"
+            />
+            Search
+          </button>
         </div>
       </form>
       {/* bottom car image */}
