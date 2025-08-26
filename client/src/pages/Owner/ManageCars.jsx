@@ -40,7 +40,7 @@ const ManageCars = () => {
                 <td>
                   <div className="flex items-center gap-3">
                     <div className="avatar">
-                      <div className="mask mask-squircle h-12 w-12">
+                      <div className="h-12 w-12 aspect-square rounded-md object-cover">
                         <img src={car?.image} alt="car picture" />
                       </div>
                     </div>
@@ -83,4 +83,4 @@ const ManageCars = () => {
 };
 
 export default ManageCars;
-//  #b2b0e8 --> border color
+
