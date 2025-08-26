@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { assets, dummyUserData } from "../../assets/assets";
-import { useLocation } from "react-router-dom";
+import { assets, dummyUserData, ownerMenuLinks } from "../../assets/assets";
+import { NavLink, useLocation } from "react-router-dom";
 
 const OwnerSidebar = () => {
   const user = dummyUserData;
@@ -24,6 +24,7 @@ const OwnerSidebar = () => {
                   "https://plus.unsplash.com/premium_photo-1671656349322-41de944d259b?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8dXNlcnxlbnwwfHwwfHx8MA%3D%3D"
             }
             alt=""
+            className="w-9 h-9 md:h-14 md:w-14 rounded-full mx-auto"
           />
           <input
             type="file"
@@ -36,6 +37,42 @@ const OwnerSidebar = () => {
             <img src={assets.edit_icon} alt="" />
           </div>
         </label>
+      </div>
+      {image && (
+        <button
+          onClick={updateImage}
+          className="absolute top-0 right-0 flex p-2 gap-1 bg-primary/10 pointer"
+        >
+          save
+          <img src={assets.check_icon} width={13} alt="" />
+        </button>
+      )}
+      <p className="mt-2 text-base max-md:hidden">{user?.name}</p>
+      <div className="w-full">
+        {ownerMenuLinks?.map((link, idx) => (
+          <NavLink
+            to={link.path}
+            className={`relative flex items-center gap-2 w-full py-3 pl-4 first:mt-6 ${
+              link.path === location.pathname
+                ? "bg-primary text-white"
+                : "text-gray-600"
+            }`}
+            key={idx}
+          >
+            <img
+              src={
+                link.path === location.pathname ? link.coloredIcon : link.icon
+              }
+              alt="car icon"
+            />
+            <span className="max-md:hidden">{link.name}</span>
+            <div
+              className={`${
+                link.path === location.pathname && "bg-primary text-white"
+              } w-1.5 h-8 rounded-l right-0 absolute`}
+            ></div>
+          </NavLink>
+        ))}
       </div>
     </section>
   );

@@ -7,6 +7,7 @@
 /* global colors  colors  */
 .bg-primary {
   background-color: #1a2a80;
+  color: white;
 }
 .bg-secondary {
   background-color: #3b38a0;
