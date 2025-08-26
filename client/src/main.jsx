@@ -12,3 +12,7 @@ createRoot(document.getElementById("root")).render(
     </StrictMode>
   </BrowserRouter>
 );
+// https://www.youtube.com/watch?v=tBObk72EYYw
+// 4h 31m
+// figma
+// https://www.figma.com/design/5f0dxevjG5nueTeNhWpOoU/CarRental?node-id=1-399 
