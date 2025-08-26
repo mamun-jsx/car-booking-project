@@ -16,31 +16,37 @@ const AddCar = () => {
     location: "",
     description: "",
   });
+
   const onsubmitHandler = async (e) => {
     e.preventDefault();
     console.log("hello");
   };
+
+  // Reusable input/select classes
+  const inputClasses =
+    "px-3 py-2 mt-1 border border-gray-300 rounded-lg outline-none text-gray-700 focus:ring-2 focus:ring-primary focus:border-primary";
+  const selectClasses =
+    "px-3 py-2 mt-1 border border-gray-300 rounded-lg outline-none text-gray-700 bg-white focus:ring-2 focus:ring-primary focus:border-primary";
+
   return (
     <section className="px-4 py-10 md:px-10 flex-1">
       <OwnerTitle
-        title={"Add New Car"}
-        subTitle={
-          "Fill in details to list a new car for booking including price, available and specification"
-        }
+        title="Add New Car"
+        subTitle="Fill in details to list a new car for booking including price, availability and specifications"
       />
+
       <form
-        className="flex flex-col gap-5 text-gray-500 text-sm mt-6 max-w-xl"
+        className="flex flex-col gap-6 text-gray-600 text-sm mt-6 max-w-xl"
         onSubmit={onsubmitHandler}
       >
-        {/* car image  */}
-        <div className="flex items-center gap-2 w-full">
-          <label htmlFor="car-image">
+        {/* Car Image */}
+        <div className="flex items-center gap-4 w-full">
+          <label htmlFor="car-image" className="cursor-pointer">
             <img
-              className="h-14 rounded pointer"
+              className="h-16 w-16 object-cover rounded-lg border border-gray-300"
               src={image ? URL.createObjectURL(image) : assets.upload_icon}
-              alt=""
+              alt="Upload"
             />
-            {/* input */}
             <input
               type="file"
               id="car-image"
@@ -51,6 +57,161 @@ const AddCar = () => {
           </label>
           <p className="text-sm text-gray-500">Upload a picture of your car</p>
         </div>
+
+        {/* Car Brand & Model */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="flex flex-col w-full">
+            <label className="text-sm font-medium">Brand</label>
+            <input
+              required
+              type="text"
+              placeholder="e.g. BMW, Mercedes, Audi..."
+              value={car.brand}
+              onChange={(e) => setCar({ ...car, brand: e.target.value })}
+              className={inputClasses}
+            />
+          </div>
+          <div className="flex flex-col w-full">
+            <label className="text-sm font-medium">Model</label>
+            <input
+              required
+              type="text"
+              placeholder="e.g. X5, E-Class, M4..."
+              value={car.model}
+              onChange={(e) => setCar({ ...car, model: e.target.value })}
+              className={inputClasses}
+            />
+          </div>
+        </div>
+
+        {/* Year - Price - Category */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+          <div className="flex flex-col w-full">
+            <label className="text-sm font-medium">Year</label>
+            <input
+              required
+              type="number"
+              placeholder="2025"
+              value={car.year}
+              onChange={(e) => setCar({ ...car, year: e.target.value })}
+              className={inputClasses}
+            />
+          </div>
+          <div className="flex flex-col w-full">
+            <label className="text-sm font-medium">Daily Price $</label>
+            <input
+              required
+              type="number"
+              placeholder="10"
+              value={car.pricePerDay}
+              onChange={(e) => setCar({ ...car, pricePerDay: e.target.value })}
+              className={inputClasses}
+            />
+          </div>
+          <div className="flex flex-col w-full">
+            <label className="text-sm font-medium">Category</label>
+            <select
+              value={car.category}
+              onChange={(e) => setCar({ ...car, category: e.target.value })}
+              className={selectClasses}
+            >
+              <option value="">Select a category</option>
+              <option value="Sedan">Sedan</option>
+              <option value="SUV">SUV</option>
+              <option value="Van">Van</option>
+            </select>
+          </div>
+        </div>
+
+        {/* Transmission - Fuel - Capacity */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+          <div className="flex flex-col w-full">
+            <label className="text-sm font-medium">Transmission</label>
+            <select
+              value={car.transmission}
+              onChange={(e) => setCar({ ...car, transmission: e.target.value })}
+              className={selectClasses}
+            >
+              <option value="">Select a transmission</option>
+              <option value="Automatic">Automatic</option>
+              <option value="Manual">Manual</option>
+              <option value="Semi-Automatic">Semi-Automatic</option>
+            </select>
+          </div>
+          <div className="flex flex-col w-full">
+            <label className="text-sm font-medium">Fuel Type</label>
+            <select
+              value={car.fuel_type}
+              onChange={(e) => setCar({ ...car, fuel_type: e.target.value })}
+              className={selectClasses}
+            >
+              <option value="">Select a fuel type</option>
+              <option value="Gas">Gas</option>
+              <option value="Diesel">Diesel</option>
+              <option value="Petrol">Petrol</option>
+              <option value="Electric">Electric</option>
+              <option value="Hybrid">Hybrid</option>
+            </select>
+          </div>
+          <div className="flex flex-col w-full">
+            <label className="text-sm font-medium">Seating Capacity</label>
+            <input
+              required
+              type="number"
+              placeholder="4"
+              value={car.seating_capacity}
+              onChange={(e) =>
+                setCar({ ...car, seating_capacity: e.target.value })
+              }
+              className={inputClasses}
+            />
+          </div>
+        </div>
+
+        {/* Location */}
+        <div className="flex flex-col w-full">
+          <label htmlFor="car-location" className="text-sm font-medium">
+            Location
+          </label>
+          <select
+            id="car-location"
+            value={car.location}
+            onChange={(e) => setCar({ ...car, location: e.target.value })}
+            className={selectClasses}
+          >
+            <option value="">Select a location</option>
+            <option value="New York">New York</option>
+            <option value="Los Angeles">Los Angeles</option>
+            <option value="Houston">Houston</option>
+            <option value="Chicago">Chicago</option>
+          </select>
+        </div>
+
+        {/* Description */}
+        <div className="flex flex-col w-full">
+          <label htmlFor="car-description" className="text-sm font-medium">
+            Description
+          </label>
+          <textarea
+            id="car-description"
+            required
+            rows={5}
+            placeholder="e.g. A luxurious SUV with a spacious interior and a powerful engine."
+            value={car.description}
+            onChange={(e) => setCar({ ...car, description: e.target.value })}
+            className={`${inputClasses} resize-none`}
+          ></textarea>
+        </div>
+
+        {/* Submit */}
+        <button className="bg-primary hover:bg-secondary transition-colors text-white flex items-center gap-2 px-5 py-2.5 mt-4 rounded-lg font-medium w-max cursor-pointer">
+          <img
+            src={assets.tick_icon}
+            className="h-4 w-4 brightness-200"
+            alt=""
+          />
+          List Your Car
+        </button>
       </form>
     </section>
   );
