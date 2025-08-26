@@ -1,11 +1,86 @@
-import React from 'react'
+import React, { useEffect, useState } from "react";
+import { assets, dummyCarData } from "../../assets/assets";
+import OwnerTitle from "../../component/Owner/OwnerTitle";
 
 const ManageCars = () => {
-  return (
-    <div>
-      Manage Car
-    </div>
-  )
-}
+  const [cars, setCars] = useState([]);
+  const fetchOwnerCars = async () => {
+    setCars(dummyCarData);
+  };
+  useEffect(() => {
+    fetchOwnerCars();
+  }, []);
 
-export default ManageCars
+  return (
+    <section className="px-4 pt-10 md:px-10 w-full">
+      <OwnerTitle
+        title={"Manage Cars"}
+        subTitle={
+          "view all list cars, update their details, or remove them from the booking platform"
+        }
+      />
+      {/* table area  */}
+      <div className="overflow-x-auto mt-10">
+        <table className="table">
+          {/* head */}
+          <thead>
+            <tr>
+              <th>Car</th>
+              <th>Category</th>
+              <th>Price</th>
+              <th>Status</th>
+              <th>Actions</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            {/* row 1 */}
+            {cars?.map((car) => (
+              <tr key={car?._id}>
+                <td>
+                  <div className="flex items-center gap-3">
+                    <div className="avatar">
+                      <div className="mask mask-squircle h-12 w-12">
+                        <img src={car?.image} alt="car picture" />
+                      </div>
+                    </div>
+                    <div>
+                      <div className="font-bold">{car?.brand}</div>
+                      <div className="text-sm opacity-50">
+                        {car?.seating_capacity} Seats | {car?.transmission}
+                      </div>
+                    </div>
+                  </div>
+                </td>
+                <td>{car?.category}</td>
+                <td>$ {car?.pricePerDay}</td>
+                <th>
+                  {car?.isAvaliable ? (
+                    <span className="bg-green-300 p-1 rounded animate-pulse text-green-600">
+                      Available
+                    </span>
+                  ) : (
+                    <span className="bg-red-300 p-1 rounded text-red-600 ">
+                      Not Available
+                    </span>
+                  )}
+                </th>
+                <th>
+                  <button className="pointer">
+                    <img src={assets.eye_icon} className="" alt="" />
+                  </button>
+                  <button className="pointer">
+                    <img src={assets.delete_icon} className="" alt="" />
+                  </button>
+                </th>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </section>
+  );
+};
+
+export default ManageCars;
+//  #b2b0e8 --> border color
