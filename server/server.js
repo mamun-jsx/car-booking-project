@@ -11,7 +11,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 await connectDB(); // DataBase connection Called
-app.use("/", router); // Router 
+app.use("/", router); // Router
 
 // test apis
 app.get("/", async (req, res) => {
