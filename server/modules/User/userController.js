@@ -2,18 +2,18 @@ import User from "./userSchema.js";
 
 export const registerUser = async (req, res) => {
   try {
-    const { name, email } = req.body;
+    const { _id, name, email } = req.body;
 
     if (!name || !email) {
       return res.json({ success: false, message: "fill all the fields" });
     }
 
-    const userExist = await User.findOne({ email });
+    const userExist = await User.findOne({ email }); //! check email is already exist
     if (userExist) {
       return res.json({ success: false, message: "user already exist" });
     }
 
-    const newUser = new User({ name, email });
+    const newUser = new User({ _id, name, email });
     await newUser.save();
 
     res.json({

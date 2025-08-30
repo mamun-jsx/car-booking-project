@@ -11,19 +11,17 @@ import ManageCars from "./pages/Owner/ManageCars";
 import ManageBookings from "./pages/Owner/ManageBookings";
 import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
-import { useState } from "react";
 
 function App() {
   const IsOwner = useLocation().pathname.startsWith("/owner");
-  const [isLogin, setIsLogin] = useState(false);
-  // console.log(setIsLogin)
+
   return (
     <>
       {!IsOwner && <NavBar />}
 
       <Routes>
-        {isLogin && <Route path="/login" element={<Login />} />}
-        {isLogin && <Route path="/sign-up" element={<SignUp />} />}
+        <Route path="/login" element={<Login />} />
+        <Route path="/sign-up" element={<SignUp />} />
         <Route path="/" element={<Home />} />
         <Route path="/car-details/:id" element={<CarDetails />} />
         <Route path="/cars" element={<Cars />} />

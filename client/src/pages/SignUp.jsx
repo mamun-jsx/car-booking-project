@@ -1,23 +1,62 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useContext, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import GoogleButton from "../component/GoogleButton";
+import { AuthContext } from "../Config/Provider/AuthProvider";
+import axiosInstance from "../Config/Axios/AxiosIntance";
+import Swal from "sweetalert2";
 
+//! main jsx function Start
 const SignUp = () => {
+  const { createUser } = useContext(AuthContext);
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
+  const navigate = useNavigate();
   const handleSignUp = (e) => {
     e.preventDefault();
 
-    const signUpData = {
-      fullName,
-      email,
-      password,
-    };
+    createUser(email, password)
+      .then((result) => {
+        const loggedUser = result.user;
+        if (loggedUser) {
+          const signUpData = {
+            _id: loggedUser.uid, // use Firebase UID
+            name: fullName, // match backend key
+            email: loggedUser.email,
+          };
 
-    console.log("SignUp Info:", signUpData);
-    // later you can send signUpData to backend using fetch/axios
+          axiosInstance
+            .post("/api/auth/user", signUpData)
+            .then((res) => {
+              if (res.data) {
+                Swal.fire({
+                  position: "top-end",
+                  icon: "success",
+                  title: `Your Registered`,
+                  showConfirmButton: false,
+                  timer: 1500,
+                });
+                navigate("/");
+              }
+            })
+            .catch((err) => {
+              Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: err?.message,
+                // footer: '<a href="#">Why do I have this issue?</a>',
+              });
+            });
+        }
+      })
+      .catch((error) => {
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: error?.message,
+          // footer: '<a href="#">Why do I have this issue?</a>',
+        });
+      });
   };
 
   return (

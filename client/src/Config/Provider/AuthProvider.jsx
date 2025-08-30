@@ -1,4 +1,5 @@
-import { createContext } from "react";
+import { createContext, useState, useEffect } from "react";
+
 import app from "../firebase.config";
 
 import {
@@ -11,8 +12,6 @@ import {
   signOut,
   updateProfile,
 } from "firebase/auth";
-import { useState } from "react";
-import { useEffect } from "react";
 
 const auth = getAuth(app);
 
@@ -25,11 +24,10 @@ const AuthProvider = ({ children }) => {
   const googleProvider = new GoogleAuthProvider();
 
   // Register user or create a user
-  const createUser = async (email, password) => {
-    setLoading(true);
+  const createUser = (email, password) => {
     setLoading(true);
     try {
-      return await createUserWithEmailAndPassword(auth, email, password);
+      return createUserWithEmailAndPassword(auth, email, password);
     } finally {
       setLoading(false);
     }
