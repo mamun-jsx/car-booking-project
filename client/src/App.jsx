@@ -11,6 +11,7 @@ import ManageCars from "./pages/Owner/ManageCars";
 import ManageBookings from "./pages/Owner/ManageBookings";
 import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
+import ErrorPage from "./pages/Error-Page/ErrorPage";
 
 function App() {
   const IsOwner = useLocation().pathname.startsWith("/owner");
@@ -19,6 +20,7 @@ function App() {
     <>
       {!IsOwner && <NavBar />}
       <Routes>
+        <Route path="*" element={<ErrorPage />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/" element={<Home />} />

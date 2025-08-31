@@ -1,8 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { assets, dummyDashboardData } from "../../assets/assets";
 import OwnerTitle from "../../component/Owner/OwnerTitle";
+import { AuthContext } from "../../Config/Provider/AuthProvider";
 
 const Dashboard = () => {
+  const { user } = useContext(AuthContext);
+  // console.log("your email -- ",`>`,user?.email,);
+
+
+
+
   const [data, setData] = useState({
     totalCars: 0,
     totalBookings: 0,

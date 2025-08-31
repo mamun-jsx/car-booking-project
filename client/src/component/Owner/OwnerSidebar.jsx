@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { assets, dummyUserData, ownerMenuLinks } from "../../assets/assets";
 import { NavLink, useLocation } from "react-router-dom";
+import { AuthContext } from "../../Config/Provider/AuthProvider";
 
 const OwnerSidebar = () => {
-  const user = dummyUserData;
+  const { user } = useContext(AuthContext);
   const location = useLocation();
   const [image, setImage] = useState();
 
@@ -11,6 +12,10 @@ const OwnerSidebar = () => {
     user.image = URL.createObjectURL(image);
     setImage("");
   };
+
+  const userEmail = user?.email;
+  const positionOfAt = userEmail.indexOf("@");
+  const userNameIs = userEmail?.slice(0, positionOfAt);
 
   return (
     <section className="relative min-h-screen md:flex flex-col items-center pt-8 max-w-13 md:max-w-60 w-full border-r border-[#b2b0e8] text-sm">
@@ -47,7 +52,7 @@ const OwnerSidebar = () => {
           <img src={assets.check_icon} width={13} alt="" />
         </button>
       )}
-      <p className="mt-2 text-base max-md:hidden">{user?.name}</p>
+      <p className="mt-2 text-base max-md:hidden capitalize">{userNameIs}</p>
       <div className="w-full">
         {ownerMenuLinks?.map((link, idx) => (
           <NavLink
