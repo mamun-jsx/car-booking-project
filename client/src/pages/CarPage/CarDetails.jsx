@@ -1,18 +1,26 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { assets, dummyCarData } from "../../assets/assets";
 import Loading from "../../component/Loading";
+import { AuthContext } from "../../Config/Provider/AuthProvider";
 
 const CarDetails = () => {
+  const { user } = useContext(AuthContext);
   const { id } = useParams();
   const navigate = useNavigate();
   const [car, setCar] = useState(null);
 
-  // ! Form input to send data to backend 
+  // ! Form input to send data to backend
   const handleFormSubmit = async (e) => {
     e.preventDefault();
-    console.log("hello world");
+    // if user is not login send him to login route
+    if (!user) {
+      navigate("/login", { state: { from: location } });
+      return;
+    }
+
+    console.log("Booking form ");
   };
   useEffect(() => {
     const filtered = dummyCarData?.find((car) => car?._id === id);
@@ -147,7 +155,10 @@ const CarDetails = () => {
               required
             />
           </div>
-          <button className="text-white bg-primary w-full font-medium rounded-xl pointer bg-hover transition-all py-3 ">
+          <button
+            type="submit"
+            className="text-white bg-primary w-full font-medium rounded-xl pointer bg-hover transition-all py-3 "
+          >
             Book Now
           </button>
           {/*  */}
