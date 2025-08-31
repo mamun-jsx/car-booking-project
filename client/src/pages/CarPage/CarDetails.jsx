@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { assets, dummyCarData } from "../../assets/assets";
 import Loading from "../../component/Loading";
@@ -10,6 +10,7 @@ const CarDetails = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [car, setCar] = useState(null);
+  const location = useLocation();
 
   // ! Form input to send data to backend
   const handleFormSubmit = async (e) => {

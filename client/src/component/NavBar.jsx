@@ -1,10 +1,34 @@
 import { Link, useNavigate } from "react-router-dom";
 import { assets, menuLinks } from "../assets/assets";
 import Search from "./Search";
-
+import { useContext } from "react";
+import { AuthContext } from "../Config/Provider/AuthProvider";
+import Swal from "sweetalert2";
 const NavBar = () => {
   const navigate = useNavigate();
+  const { user, logOutUser } = useContext(AuthContext);
 
+  const handleLogout = async () => {
+    try {
+      await logOutUser().then(() => {
+        //* alert if login successful
+        Swal.fire({
+          title: "You Are Logout",
+          icon: "success",
+          // draggable: true,
+        });
+      });
+      navigate("login");
+    } catch (error) {
+      //? handle error from tryCatch blog
+      Swal.fire({
+        icon: "error",
+        title: "Something went wrong!",
+        text: `${error.message}`,
+        // footer: '<a href="#">Why do I have this issue?</a>',
+      });
+    }
+  };
   return (
     <section className="border-b border-gray-200 sticky top-0 z-20  bg-base-100">
       <div className="navbar max-w-7xl mx-auto px-4">
@@ -76,6 +100,13 @@ const NavBar = () => {
             className="btn btn-outline rounded-full"
           >
             Dashboard
+          </button>
+
+          <button
+            onClick={() => handleLogout()}
+            className="btn btn-outline rounded-full"
+          >
+            Logout
           </button>
         </div>
       </div>

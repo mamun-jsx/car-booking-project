@@ -76,8 +76,12 @@ const AuthProvider = ({ children }) => {
     setUser({ ...auth.currentUser }); //! Refresh the local state
   };
   //!  logOutUser
-  const logOutUser = async () => {
-    return signOut(auth).finally(() => setLoading(false));
+  const logOutUser = () => {
+    try {
+      return signOut(auth);
+    } finally {
+      setLoading(false);
+    }
   };
   const authInfo = {
     user, // user state

@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 import GoogleButton from "../component/GoogleButton";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../Config/Provider/AuthProvider";
 import Swal from "sweetalert2";
 
@@ -8,7 +8,7 @@ export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { loginUser } = useContext(AuthContext); //login function from context
-
+  const location = useLocation();
   const navigate = useNavigate();
   const from = location?.state?.from?.pathname || "/"; //! track user route location and send him to origin
   const handleLogin = async (e) => {
@@ -37,7 +37,7 @@ export default function Login() {
           title: "Oops...",
           text: "Invalid Credential 🫣",
         });
-      }else{
+      } else {
         Swal.fire({
           icon: "error",
           title: "Oops...",
