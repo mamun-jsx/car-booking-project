@@ -33,13 +33,13 @@ const AuthProvider = ({ children }) => {
     }
   };
   // login a user with credential
-  const loginUser = async (email, password) => {
+  const loginUser = (email, password) => {
     setLoading(true);
-    return await signInWithEmailAndPassword(auth, email, password).finally(
-      () => {
-        setLoading(false);
-      }
-    );
+    try {
+      return signInWithEmailAndPassword(auth, email, password);
+    } finally {
+      setLoading(false);
+    }
   };
   // google Login
   const googleSignIn = async () => {

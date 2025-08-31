@@ -18,10 +18,9 @@ function App() {
   return (
     <>
       {!IsOwner && <NavBar />}
-
       <Routes>
         <Route path="/login" element={<Login />} />
-        <Route path="/sign-up" element={<SignUp />} />
+        <Route path="/signup" element={<SignUp />} />
         <Route path="/" element={<Home />} />
         <Route path="/car-details/:id" element={<CarDetails />} />
         <Route path="/cars" element={<Cars />} />

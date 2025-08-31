@@ -1,21 +1,50 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import GoogleButton from "../component/GoogleButton";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { AuthContext } from "../Config/Provider/AuthProvider";
+import Swal from "sweetalert2";
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const { loginUser } = useContext(AuthContext); //login function from context
 
+  const navigate = useNavigate();
+  const from = location?.state?.from?.pathname || "/"; //! track user route location and send him to origin
   const handleLogin = async (e) => {
     e.preventDefault(); // prevent page reload
-
-    const loginInfo = {
-      email,
-      password,
-    };
-
-    console.log("Login info:", loginInfo);
-    // later you can send loginInfo to backend with fetch/axios
+    try {
+      await loginUser(email, password) //* firebase login built in function
+        .then((result) => {
+          const user = result.user;
+          // check user and navigate him to route
+          if (user) {
+            Swal.fire({
+              position: "top-end",
+              icon: "success",
+              title: "Welcome Back",
+              showConfirmButton: false,
+              timer: 1500,
+            });
+            navigate(from, { replace: true });
+          }
+        });
+    } catch (error) {
+      //? handle errors from tryCatch blog(show alert)
+      if (error.code === "auth/invalid-credential") {
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Invalid Credential 🫣",
+        });
+      }else{
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: `${error.message}`,
+        });
+      }
+    }
   };
 
   return (
@@ -55,7 +84,7 @@ export default function Login() {
               <p className="text-[14px] my-3">
                 New Here ?{" "}
                 <Link
-                  to="/sign-up"
+                  to="/signup"
                   className="underline primary-color  "
                   onClick={() => scrollTo(0, 0)}
                 >
