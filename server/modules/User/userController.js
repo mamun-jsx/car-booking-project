@@ -1,5 +1,6 @@
 import User from "./userSchema.js";
 
+// create a single user 
 export const registerUser = async (req, res) => {
   try {
     const { _id, name, email } = req.body;

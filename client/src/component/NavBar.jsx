@@ -4,10 +4,11 @@ import Search from "./Search";
 import { useContext } from "react";
 import { AuthContext } from "../Config/Provider/AuthProvider";
 import Swal from "sweetalert2";
+import useRole from "../hooks/useRole";
 const NavBar = () => {
   const navigate = useNavigate();
   const { user, logOutUser } = useContext(AuthContext);
-
+  const { isOwner } = useRole();
   const handleLogout = async () => {
     try {
       await logOutUser().then(() => {
@@ -97,19 +98,23 @@ const NavBar = () => {
           )}
 
           {/* Dashboard (uses navigate) */}
-          <button
-            onClick={() => navigate("/owner")}
-            className="btn btn-outline rounded-full"
-          >
-            Dashboard
-          </button>
+          {isOwner && (
+            <button
+              onClick={() => navigate("/owner")}
+              className="btn btn-outline rounded-full"
+            >
+              Dashboard
+            </button>
+          )}
 
-          <button
-            onClick={() => handleLogout()}
-            className="btn btn-outline rounded-full"
-          >
-            Logout
-          </button>
+          {user && (
+            <button
+              onClick={() => handleLogout()}
+              className="btn btn-outline rounded-full"
+            >
+              Logout
+            </button>
+          )}
         </div>
       </div>
     </section>

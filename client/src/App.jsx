@@ -21,6 +21,7 @@ import { AuthContext } from "./Config/Provider/AuthProvider";
 function App() {
   const IsOwner = useLocation().pathname.startsWith("/owner");
   const { user } = useContext(AuthContext);
+  
   return (
     <>
       {!IsOwner && <NavBar />}
