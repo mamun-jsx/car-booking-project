@@ -1,8 +1,16 @@
 import React, { useState } from "react";
 import OwnerTitle from "../../component/Owner/OwnerTitle";
 import { assets } from "../../assets/assets";
+import { useContext } from "react";
+import { AuthContext } from "../../Config/Provider/AuthProvider";
+import axiosInstance from "../../Config/Axios/AxiosIntance";
+import Swal from "sweetalert2";
 
 const AddCar = () => {
+  const [loading, setLoading] = useState(false);
+  const { user } = useContext(AuthContext);
+  const ownerId = user?.uid;
+
   const [image, setImage] = useState(null);
   const [car, setCar] = useState({
     brand: "",
@@ -15,11 +23,44 @@ const AddCar = () => {
     seating_capacity: 0,
     location: "",
     description: "",
+    ownerId,
   });
 
   const onsubmitHandler = async (e) => {
     e.preventDefault();
-    console.log("hello");
+    setLoading(true);
+    const formData = new FormData();
+    formData.append("brand", car.brand);
+    formData.append("model", car.model);
+    formData.append("year", car.year);
+    formData.append("pricePerDay", car.pricePerDay);
+    formData.append("category", car.category);
+    formData.append("transmission", car.transmission);
+    formData.append("fuel_type", car.fuel_type);
+    formData.append("seating_capacity", car.seating_capacity);
+    formData.append("location", car.location);
+    formData.append("description", car.description);
+    formData.append("ownerId", ownerId);
+    if (image) formData.append("image", image); // append the file
+
+    try {
+      const res = await axiosInstance.post("/api/owner/car-add", formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
+      if (res.data.success) {
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: `Car is added`,
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      }
+    } catch (error) {
+      console.error(error.response?.data || error.message);
+    } finally {
+      setLoading(false);
+    }
   };
 
   // Reusable input/select classes
@@ -204,14 +245,22 @@ const AddCar = () => {
         </div>
 
         {/* Submit */}
-        <button className="bg-primary hover:bg-secondary transition-colors text-white flex items-center gap-2 px-5 py-2.5 mt-4 rounded-lg font-medium w-max cursor-pointer">
-          <img
-            src={assets.tick_icon}
-            className="h-4 w-4 brightness-200"
-            alt=""
-          />
-          List Your Car
-        </button>
+        {loading ? (
+          <>
+            <span className="loading loading-spinner text-primary"></span>
+          </>
+        ) : (
+          <>
+            <button className="bg-primary hover:bg-secondary transition-colors text-white flex items-center gap-2 px-5 py-2.5 mt-4 rounded-lg font-medium w-max cursor-pointer">
+              <img
+                src={assets.tick_icon}
+                className="h-4 w-4 brightness-200"
+                alt=""
+              />
+              List Your Car
+            </button>
+          </>
+        )}
       </form>
     </section>
   );

@@ -17,11 +17,12 @@ import AboutUs from "./pages/AboutUs";
 import ContactUs from "./pages/ContactUs";
 import { useContext } from "react";
 import { AuthContext } from "./Config/Provider/AuthProvider";
+import AllUser from "./AllUser";
 
 function App() {
   const IsOwner = useLocation().pathname.startsWith("/owner");
   const { user } = useContext(AuthContext);
-  
+
   return (
     <>
       {!IsOwner && <NavBar />}
@@ -35,6 +36,7 @@ function App() {
         <Route path="/car-details/:id" element={<CarDetails />} />
         <Route path="/cars" element={<Cars />} />
         <Route path="/my-bookings" element={<MyBookings />} />
+        <Route path="/my-user" element={<AllUser />} />
         {/* -------------------------------------- ------- ------- ------- ------- */}
         {/* ---------------- ------- ---------Car Owner Route-------------------- */}
         {/* --------------------------------------------- ------- ------- -------  */}

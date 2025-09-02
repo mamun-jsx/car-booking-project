@@ -18,6 +18,7 @@ export default function Login() {
         .then((result) => {
           const user = result.user;
           // check user and navigate him to route
+          
           if (user) {
             Swal.fire({
               position: "top-end",
@@ -27,6 +28,7 @@ export default function Login() {
               timer: 1500,
             });
             navigate(from, { replace: true });
+            localStorage.setItem("token", res.data.token);
           }
         });
     } catch (error) {

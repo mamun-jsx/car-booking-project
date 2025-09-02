@@ -1,6 +1,6 @@
 import User from "./userSchema.js";
 
-// create a single user 
+// create a single user
 export const registerUser = async (req, res) => {
   try {
     const { _id, name, email } = req.body;
@@ -79,8 +79,18 @@ export const updateUserById = async (req, res) => {
     res.json({ success: true, user: updatedUser });
   } catch (error) {
     console.error("Error updating user:", error.message);
-    res
-      .status(500)
-      .json({ success: false, message: "Failed to update user.." });
+    res.json({ success: false, message: "Failed to update user.." });
+  }
+};
+
+// get User data using Token (JWT)
+
+export const getUserData = async (req, res) => {
+  try {
+    const { user } = req;
+    res.json({ success: true, user });
+  } catch (error) {
+    console.log(error.message);
+    res.json({ success: false, message: error?.message });
   }
 };
