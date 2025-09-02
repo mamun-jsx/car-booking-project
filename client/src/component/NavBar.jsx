@@ -90,9 +90,11 @@ const NavBar = () => {
           <Search />
 
           {/* Signup */}
-          <Link to="/signup" className="btn btn-primary rounded-full">
-            Signup
-          </Link>
+          {!user && (
+            <Link to="/signup" className="btn btn-primary rounded-full">
+              Signup
+            </Link>
+          )}
 
           {/* Dashboard (uses navigate) */}
           <button

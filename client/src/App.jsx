@@ -15,17 +15,19 @@ import ErrorPage from "./pages/Error-Page/ErrorPage";
 import Footer from "./component/Footer";
 import AboutUs from "./pages/AboutUs";
 import ContactUs from "./pages/ContactUs";
+import { useContext } from "react";
+import { AuthContext } from "./Config/Provider/AuthProvider";
 
 function App() {
   const IsOwner = useLocation().pathname.startsWith("/owner");
-
+  const { user } = useContext(AuthContext);
   return (
     <>
       {!IsOwner && <NavBar />}
       <Routes>
         <Route path="*" element={<ErrorPage />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<SignUp />} />
+        {!user && <Route path="/login" element={<Login />} />}
+        {!user && <Route path="/signup" element={<SignUp />} />}
         <Route path="/about-us" element={<AboutUs />} />
         <Route path="/contact-us" element={<ContactUs />} />
         <Route path="/" element={<Home />} />

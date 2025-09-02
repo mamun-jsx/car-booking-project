@@ -11,7 +11,7 @@ const Footer = () => {
           onClick={() => scrollTo(0, 0)}
           className="link link-hover hover:text-primary"
         >
-          About us
+          About Us
         </Link>
 
         <Link
