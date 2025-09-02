@@ -4,6 +4,7 @@ import FeaturedCar from "../../component/Features/FeaturedCar";
 import { AuthContext } from "../../Config/Provider/AuthProvider";
 import PricingTable from "../../component/PricingTable";
 import BookingProcess from "../../component/BookingProcess";
+import ComingSoon from "../../component/ComingSoon";
 
 const Home = () => {
   const { user } = useContext(AuthContext);
@@ -14,6 +15,7 @@ const Home = () => {
       <FeaturedCar />
       <PricingTable />
       <BookingProcess />
+      <ComingSoon/>
     </section>
   );
 };

@@ -12,6 +12,9 @@ import ManageBookings from "./pages/Owner/ManageBookings";
 import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
 import ErrorPage from "./pages/Error-Page/ErrorPage";
+import Footer from "./component/Footer";
+import AboutUs from "./pages/AboutUs";
+import ContactUs from "./pages/ContactUs";
 
 function App() {
   const IsOwner = useLocation().pathname.startsWith("/owner");
@@ -23,6 +26,8 @@ function App() {
         <Route path="*" element={<ErrorPage />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
+        <Route path="/about-us" element={<AboutUs />} />
+        <Route path="/contact-us" element={<ContactUs />} />
         <Route path="/" element={<Home />} />
         <Route path="/car-details/:id" element={<CarDetails />} />
         <Route path="/cars" element={<Cars />} />
@@ -37,6 +42,7 @@ function App() {
           <Route path="manage-bookings" element={<ManageBookings />} />
         </Route>
       </Routes>
+      <Footer />
     </>
   );
 }
