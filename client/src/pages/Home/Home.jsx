@@ -3,6 +3,7 @@ import HomeHeroSection from "../../component/HeroSections/HomeHeroSection";
 import FeaturedCar from "../../component/Features/FeaturedCar";
 import { AuthContext } from "../../Config/Provider/AuthProvider";
 import PricingTable from "../../component/PricingTable";
+import BookingProcess from "../../component/BookingProcess";
 
 const Home = () => {
   const { user } = useContext(AuthContext);
@@ -12,6 +13,7 @@ const Home = () => {
       <HomeHeroSection />
       <FeaturedCar />
       <PricingTable />
+      <BookingProcess />
     </section>
   );
 };

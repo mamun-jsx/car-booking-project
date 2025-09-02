@@ -1,17 +1,15 @@
 import { assets } from "../assets/assets";
+import Title from "./Title";
 
 export default function PricingTable() {
   return (
-    <section className="py-10 px-4 bg-base-200">
-      <div className="max-w-6xl mx-auto text-center mb-10">
-        <h2 className="text-3xl md:text-4xl font-bold primary-color">
-          Car Rental Pricing
-        </h2>
-        <p className="mt-2 text-sm md:text-base text-gray-500">
-          Choose the right car that fits your needs
-        </p>
-      </div>
-
+    <section className="py-14 px-4 bg-base-200">
+      <Title
+        title={"Car Rental Pricing"}
+        subTitle={"Choose the right car that fits your needs. All cars are well performed no accident history. Good milage with perfect braking."}
+      />
+      <br />
+      <br />
       <div className="grid max-w-7xl mx-auto gap-6 md:grid-cols-3">
         {/* Small Cars */}
         <div className="card w-full bg-base-100 shadow-md hover:shadow-lg transition">
@@ -19,7 +17,7 @@ export default function PricingTable() {
             <span className="badge badge-xs bg-light self-start">Budget</span>
             <div className="flex justify-between items-center">
               <h3 className="text-2xl font-bold">Small Cars</h3>
-              <span className="text-xl">$20/day</span>
+              <span className="text-xl">$150/day</span>
             </div>
             <ul className="mt-4 flex flex-col gap-2 text-sm">
               <li>Compact size for city driving</li>
@@ -50,7 +48,7 @@ export default function PricingTable() {
             </span>
             <div className="flex justify-between items-center">
               <h3 className="text-2xl font-bold">Standard Sedans</h3>
-              <span className="text-xl">$35/day</span>
+              <span className="text-xl">$250/day</span>
             </div>
             <ul className="mt-4 flex flex-col gap-2 text-sm">
               <li>Comfortable 4 seats</li>
@@ -81,7 +79,7 @@ export default function PricingTable() {
             </span>
             <div className="flex justify-between items-center">
               <h3 className="text-2xl font-bold">Premium SUVs</h3>
-              <span className="text-xl">$50/day</span>
+              <span className="text-xl">$300/day</span>
             </div>
             <ul className="mt-4 flex flex-col gap-2 text-sm">
               <li>Spacious & powerful</li>
