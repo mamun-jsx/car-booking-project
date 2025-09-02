@@ -9,7 +9,7 @@ const Footer = () => {
         <Link
           to="/about-us"
           onClick={() => scrollTo(0, 0)}
-          className="link link-hover"
+          className="link link-hover hover:text-primary"
         >
           About us
         </Link>
@@ -17,18 +17,22 @@ const Footer = () => {
         <Link
           to="/contact-us"
           onClick={() => scrollTo(0, 0)}
-          className="link link-hover"
+          className="link link-hover hover:text-primary"
         >
           Contact Us
         </Link>
         <Link
           to="cars"
           onClick={() => scrollTo(0, 0)}
-          className="link link-hover"
+          className="link link-hover hover:text-primary"
         >
           Cars
         </Link>
-        <Link to="/" onClick={() => scrollTo(0, 0)} className="link link-hover">
+        <Link
+          to="/"
+          onClick={() => scrollTo(0, 0)}
+          className="link link-hover hover:text-primary"
+        >
           Home
         </Link>
       </nav>
@@ -53,7 +57,12 @@ const Footer = () => {
       <aside>
         <p>
           Copyright © {new Date().getFullYear()} - All right reserved by
-          Abdullah Al Mamun
+          <Link
+            className="ml-2 underline text-primary"
+            to={`https://github.com/mamun-jsx`}
+          >
+            Abdullah Al Mamun
+          </Link>
         </p>
       </aside>
     </footer>
