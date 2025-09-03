@@ -6,6 +6,7 @@ const useRole = () => {
   const { user } = useContext(AuthContext);
   const [isAdmin, setIsAdmin] = useState(false);
   const [isOwner, setIsOwner] = useState(false);
+  const [dbUser, setDbUser] = useState();
 
   useEffect(() => {
     const checkRole = async () => {
@@ -13,7 +14,7 @@ const useRole = () => {
       try {
         const result = await axiosInstance.get(`/api/auth/user/${user.email}`);
         const role = result.data?.user?.role;
-
+        setDbUser(result?.data?.user);
         if (role === "admin") {
           setIsAdmin(true);
         } else if (role === "owner") {
@@ -27,7 +28,7 @@ const useRole = () => {
     checkRole();
   }, [user]);
 
-  return { isAdmin, isOwner };
+  return { isAdmin, isOwner, dbUser };
 };
 
 export default useRole;

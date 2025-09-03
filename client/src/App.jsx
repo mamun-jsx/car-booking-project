@@ -53,3 +53,6 @@ function App() {
 }
 
 export default App;
+
+// 6h 23m
+// https://www.youtube.com/watch?v=tBObk72EYYw

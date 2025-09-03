@@ -1,16 +1,16 @@
 import React, { useState } from "react";
 import OwnerTitle from "../../component/Owner/OwnerTitle";
 import { assets } from "../../assets/assets";
-import { useContext } from "react";
-import { AuthContext } from "../../Config/Provider/AuthProvider";
+
 import axiosInstance from "../../Config/Axios/AxiosIntance";
 import Swal from "sweetalert2";
+import useRole from "../../hooks/useRole";
 
 const AddCar = () => {
   const [loading, setLoading] = useState(false);
-  const { user } = useContext(AuthContext);
-  const ownerId = user?.uid;
-
+  const { dbUser } = useRole()
+  const ownerId = dbUser?._id;
+console.log(ownerId)
   const [image, setImage] = useState(null);
   const [car, setCar] = useState({
     brand: "",
@@ -29,6 +29,17 @@ const AddCar = () => {
   const onsubmitHandler = async (e) => {
     e.preventDefault();
     setLoading(true);
+    // show alert during data save to database..
+    // Show loading alert (no timer, stays open)
+    Swal.fire({
+      title: "Please wait...",
+      text: "Your car is being added. Do not reload the page.",
+      allowOutsideClick: false, // prevent closing by clicking outside
+      didOpen: () => {
+        Swal.showLoading();
+      },
+    });
+
     const formData = new FormData();
     formData.append("brand", car.brand);
     formData.append("model", car.model);
@@ -47,6 +58,11 @@ const AddCar = () => {
       const res = await axiosInstance.post("/api/owner/car-add", formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
+      // Close loading alert
+      Swal.close();
+
+      // data save to data base and show alert
+
       if (res.data.success) {
         Swal.fire({
           position: "top-end",
@@ -58,6 +74,12 @@ const AddCar = () => {
       }
     } catch (error) {
       console.error(error.response?.data || error.message);
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: `${error?.message}`,
+        // footer: '<a href="#">Why do I have this issue?</a>',
+      });
     } finally {
       setLoading(false);
     }
