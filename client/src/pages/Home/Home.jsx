@@ -6,16 +6,18 @@ import PricingTable from "../../component/PricingTable";
 import BookingProcess from "../../component/BookingProcess";
 import ComingSoon from "../../component/ComingSoon";
 import PopularBrand from "../../component/Popular-Brand/PopularBrand";
+import WhyChooseUs from "../../component/WhyChooseUs";
 
 const Home = () => {
   // const data = 
   return (
     <section>
       <HomeHeroSection />
+      <PopularBrand />
       <FeaturedCar />
       <PricingTable />
-      <PopularBrand />
       <BookingProcess />
+      <WhyChooseUs/>
       <ComingSoon />
     </section>
   );

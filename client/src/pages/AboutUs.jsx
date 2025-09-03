@@ -2,6 +2,7 @@ import ComingSoon from "../component/ComingSoon";
 import FAQ from "../component/FAQ";
 import PopularBrand from "../component/Popular-Brand/PopularBrand";
 import Title from "../component/Title";
+import WhyChooseUs from "../component/WhyChooseUs";
 
 export default function AboutUs() {
   return (
@@ -49,6 +50,7 @@ export default function AboutUs() {
         </div>
       </section>
       <PopularBrand />
+      <WhyChooseUs />
       <ComingSoon />
 
       <FAQ />
