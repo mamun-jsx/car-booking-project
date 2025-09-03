@@ -117,18 +117,7 @@ export const assets = {
   bike_image1,
   contactUsCar,
 };
-// car collection
-export const carBrand = [
-  { _id: 1, img: tesla },
-  { _id: 2, img: toyota },
-  { _id: 3, img: mazda },
-  { _id: 4, img: audi },
-  { _id: 5, img: hunda },
-  { _id: 6, img: bmw },
-  { _id: 7, img: landRover },
-  { _id: 8, img: mercedes },
-  { _id: 9, img: nishan },
-];
+
 export const menuLinks = [
   { name: "Home", path: "/" },
   { name: "Cars", path: "/cars" },
@@ -169,7 +158,18 @@ export const dummyUserData = {
   role: "owner",
   image: user_profile,
 };
-
+// car collection
+export const carBrand = [
+  { _id: 1, img: tesla },
+  { _id: 2, img: toyota },
+  { _id: 3, img: mazda },
+  { _id: 4, img: audi },
+  { _id: 5, img: hunda },
+  { _id: 6, img: bmw },
+  { _id: 7, img: landRover },
+  { _id: 8, img: mercedes },
+  { _id: 9, img: nishan },
+];
 export const dummyCarData = [
   {
     _id: "67ff5bc069c03d4e45f30b77",

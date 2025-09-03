@@ -1,5 +1,6 @@
 import ComingSoon from "../component/ComingSoon";
 import FAQ from "../component/FAQ";
+import PopularBrand from "../component/Popular-Brand/PopularBrand";
 import Title from "../component/Title";
 
 export default function AboutUs() {
@@ -47,6 +48,7 @@ export default function AboutUs() {
           </div>
         </div>
       </section>
+      <PopularBrand />
       <ComingSoon />
 
       <FAQ />
