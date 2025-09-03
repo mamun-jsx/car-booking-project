@@ -52,7 +52,6 @@ export default function AboutUs() {
       <PopularBrand />
       <WhyChooseUs />
       <ComingSoon />
-
       <FAQ />
     </>
   );

@@ -8,9 +8,8 @@ import useRole from "../../hooks/useRole";
 
 const AddCar = () => {
   const [loading, setLoading] = useState(false);
-  const { dbUser } = useRole()
+  const { dbUser } = useRole();
   const ownerId = dbUser?._id;
-console.log(ownerId)
   const [image, setImage] = useState(null);
   const [car, setCar] = useState({
     brand: "",

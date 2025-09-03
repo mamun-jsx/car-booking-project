@@ -54,7 +54,7 @@ import bmw from "./carCollection/bmw.png";
 import landRover from "./carCollection/Land Rover.jpg";
 import mercedes from "./carCollection/Mercedes-Benz.png";
 import nishan from "./carCollection/nishan.png";
-
+import userIcon from "./userIcon.png";
 export const cityList = ["New York", "Los Angeles", "Houston", "Chicago"];
 
 export const assets = {
@@ -70,6 +70,7 @@ export const assets = {
   nishan,
   // car logo ends
   logo,
+  userIcon,
   gmail_logo,
   facebook_logo,
   instagram_logo,
@@ -121,7 +122,8 @@ export const assets = {
 export const menuLinks = [
   { name: "Home", path: "/" },
   { name: "Cars", path: "/cars" },
-  { name: "My Bookings", path: "/my-bookings" },
+  { name: "About Us", path: "/about-us" },
+  { name: "Contact Us", path: "/contact-us" },
 ];
 
 export const ownerMenuLinks = [

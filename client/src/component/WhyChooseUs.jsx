@@ -5,25 +5,25 @@ export default function WhyChooseUs() {
   const reasons = [
     {
       id: 1,
-      icon: <DollarSign className="w-10 h-10 text-indigo-600" />,
+      icon: <DollarSign className="w-10 h-10 secondary-color" />,
       title: "Affordable Pricing",
       desc: "Get the best deals with transparent and competitive pricing.",
     },
     {
       id: 2,
-      icon: <Clock className="w-10 h-10 text-indigo-600" />,
+      icon: <Clock className="w-10 h-10 secondary-color" />,
       title: "Quick Booking",
       desc: "Book your car in just a few clicks without any hassle.",
     },
     {
       id: 3,
-      icon: <ThumbsUp className="w-10 h-10 text-indigo-600" />,
+      icon: <ThumbsUp className="w-10 h-10 secondary-color" />,
       title: "Trusted Service",
       desc: "Thousands of happy customers trust us for their rides.",
     },
     {
       id: 4,
-      icon: <CheckCircle className="w-10 h-10 text-indigo-600" />,
+      icon: <CheckCircle className="w-10 h-10 secondary-color" />,
       title: "Reliable Cars",
       desc: "Well-maintained vehicles to ensure safety and comfort.",
     },
