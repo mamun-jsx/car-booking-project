@@ -1,7 +1,11 @@
 import mongoose from "mongoose";
 const carSchema = new mongoose.Schema(
   {
-    owner: { type: String, required: true },
+    owner: {
+ type: String,
+      ref: "User",
+      required: true,
+    },
     brand: { type: String, required: true },
     model: { type: String, required: true },
     image: { type: String, required: true },

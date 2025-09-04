@@ -75,3 +75,23 @@ export const addCar = async (req, res) => {
     });
   }
 };
+
+// get all cars with Owner info
+
+export const getAllCars = async (req, res) => {
+  try {
+    const cars = await Car.find().populate({
+      path: "owner",
+      select: "name email image",
+      match: { role: "owner" },
+    }); //car with owner info
+    res.json({ success: true, count: cars.length, cars });
+  } catch (error) {
+    console.log("Error", error);
+    res.json({
+      success: false,
+      message: "Failed to fetch data",
+      error: error?.message,
+    });
+  }
+};
