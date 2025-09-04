@@ -95,3 +95,102 @@ export const getAllCars = async (req, res) => {
     });
   }
 };
+
+// Get cars by owner (Firebase UID = string)
+export const getOwnerCars = async (req, res) => {
+  try {
+    const { ownerId } = req.params;
+
+    const cars = await Car.find({ owner: ownerId }).populate({
+      path: "owner",
+      select: "name email image",
+    });
+
+    if (!cars.length) {
+      return res.json({
+        success: false,
+        message: "No cars found for this owner",
+      });
+    }
+
+    res.json({ success: true, count: cars.length, cars });
+  } catch (error) {
+    console.error("Error in getOwnerCars:", error.message);
+    res.json({
+      success: false,
+      message: "Failed to fetch owner cars",
+      error: error.message,
+    });
+  }
+};
+
+// Toggle car availability (only if owner matches)
+export const toggleCarAvailability = async (req, res) => {
+  try {
+    const { carId, ownerId } = req.params;
+
+    const car = await Car.findById(carId);
+    if (!car) {
+      return res.json({ success: false, message: "Car not found" });
+    }
+
+    // If only the owner can toggle
+    if (car.owner !== ownerId) {
+      return res.json({ success: false, message: "Unauthorized" });
+    }
+
+    // toggle
+    car.isAvailable = !car.isAvailable;
+    await car.save();
+
+    res.json({ success: true, car });
+  } catch (error) {
+    console.error("Error in toggleCarAvailability:", error.message);
+    res.json({
+      success: false,
+      message: "Failed to toggle availability",
+      error: error.message,
+    });
+  }
+};
+//  Delete a single car
+export const deleteCar = async (req, res) => {
+  try {
+    const { carId, ownerId } = req.params;
+
+    const car = await Car.findById(carId);
+    if (!car) {
+      return res.json({ success: false, message: "Car not found" });
+    }
+
+    // check if the car belongs to this owner
+    if (car.owner !== ownerId) {
+      return res.json({
+        success: false,
+        message: "Unauthorized: You can only delete your own cars",
+      });
+    }
+
+    await car.deleteOne();
+
+    res.json({ success: true, message: "Car deleted successfully" });
+  } catch (error) {
+    console.error("Error in deleteCar:", error.message);
+    res.json({
+      success: false,
+      message: "Failed to delete car",
+      error: error.message,
+    });
+  }
+};
+
+// Api to show Dashboard data
+// export const getDashboardData = async (req, res) => {
+//   try {
+//     const { ownerId: owner } = req.body;
+//     const cars = await Car.find({ owner });
+//   } catch (error) {
+//     console.log(error?.message);
+//     res.json({ success: false, message: error.message });
+//   }
+// };

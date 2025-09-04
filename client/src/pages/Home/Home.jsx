@@ -9,7 +9,6 @@ import PopularBrand from "../../component/Popular-Brand/PopularBrand";
 import WhyChooseUs from "../../component/WhyChooseUs";
 
 const Home = () => {
-  // const data = 
   return (
     <section>
       <HomeHeroSection />

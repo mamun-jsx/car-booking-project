@@ -9,5 +9,8 @@
 // ?--------------------| Car Post, Put, Get , Delete |----------------------------------------
 // post ----> http://localhost:4000/api/owner/car-add
 // get (all car with user Info) ----> http://localhost:4000/api/owner/read-cars
+// get (Dashboard car List) ----> http://localhost:4000/api/owner/:ownerId/cars
+// patch  (Dashboard car available) ----> http://localhost:4000/api/owner/dashboard/:carId/toggle
+// delete (Dashboard car delete) ----> http://localhost:4000/api/owner/dashboard-delete/:carId
 
 // ?----------------------------------| Car Apis Ends |----------------------------------------
