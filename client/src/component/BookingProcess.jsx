@@ -1,5 +1,7 @@
 import Title from "./Title";
 
+import { motion } from "motion/react";
+
 export default function BookingProcess() {
   return (
     <section className="py-16 px-6 bg-base-100">
@@ -10,7 +12,12 @@ export default function BookingProcess() {
         }
       />
       <br /> <br />
-      <div className="grid max-w-7xl  mx-auto gap-8 md:grid-cols-4">
+      <motion.div
+        whileInView={{ opacity: 1, y: 0 }}
+        initial={{ opacity: 0, y: 100 }}
+        transition={{ duration: 0.9 }}
+        className="grid max-w-7xl  mx-auto gap-8 md:grid-cols-4"
+      >
         {/* Step 1 */}
         <div className="card bg-base-200 shadow-md hover:shadow-lg transition p-6">
           <div className="text-primary text-4xl mb-4">1️⃣</div>
@@ -46,7 +53,7 @@ export default function BookingProcess() {
             Wait for admin approval and pay in cash—safe and easy.
           </p>
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 }

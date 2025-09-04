@@ -4,6 +4,7 @@ import Swal from "sweetalert2";
 import PopularBrand from "../component/Popular-Brand/PopularBrand";
 import PricingTable from "../component/PricingTable";
 import { useNavigate } from "react-router-dom";
+import { motion } from "motion/react";
 const ContactUs = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
@@ -54,7 +55,12 @@ const ContactUs = () => {
         {/* Long Description */}
         <section className="max-w-7xl mx-auto px-4 py-16 flex flex-col md:flex-row gap-10">
           {/* Long Description */}
-          <div className="md:w-1/2">
+          <motion.div
+            whileInView={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, x: -300 }}
+            transition={{ duration: 1.3 }}
+            className="md:w-1/2"
+          >
             <h3 className="text-2xl font-semibold mb-4">About Our Business</h3>
             <p className="text-gray-600 leading-relaxed">
               Since 2023, we have been providing a seamless and reliable car
@@ -69,10 +75,15 @@ const ContactUs = () => {
               you more options to choose from. Trust and customer satisfaction
               have always been at the core of our journey.
             </p>
-          </div>
+          </motion.div>
 
           {/* Contact Form */}
-          <div className="md:w-1/2 bg-white shadow-lg rounded-lg p-6">
+          <motion.div
+            whileInView={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, x: 300 }}
+            transition={{ duration: 0.8 }}
+            className="md:w-1/2 bg-white shadow-lg rounded-lg p-6"
+          >
             <h3 className="text-xl font-semibold mb-4">Send Us a Message</h3>
             <form onSubmit={handleSubmit} className="space-y-4">
               <input
@@ -118,7 +129,7 @@ const ContactUs = () => {
                 Submit
               </button>
             </form>
-          </div>
+          </motion.div>
         </section>
       </div>
       <PricingTable />

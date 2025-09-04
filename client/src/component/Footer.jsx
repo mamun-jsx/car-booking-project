@@ -1,11 +1,17 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { assets } from "../assets/assets";
+import { motion } from "motion/react";
 
 const Footer = () => {
   return (
     <footer className="footer footer-horizontal footer-center bg-base-300 text-base-content rounded  p-10">
-      <nav className="grid grid-flow-col gap-4">
+      <motion.nav
+        whileInView={{ opacity: 1, x: 0 }}
+        initial={{ opacity: 0, x: -300 }}
+        transition={{ duration: 0.9 }}
+        className="grid grid-flow-col gap-4"
+      >
         <Link
           to="/about-us"
           onClick={() => scrollTo(0, 0)}
@@ -35,8 +41,12 @@ const Footer = () => {
         >
           Home
         </Link>
-      </nav>
-      <nav>
+      </motion.nav>
+      <motion.nav
+        whileInView={{ opacity: 1, x: 0 }}
+        initial={{ opacity: 0, x: 300 }}
+        transition={{ duration: 0.9 }}
+      >
         <div className="grid grid-flow-col gap-4">
           <Link to={`https://www.facebook.com/@mamunthegreat`}>
             <img src={assets.facebook_logo} alt="" />
@@ -53,9 +63,13 @@ const Footer = () => {
             <img src={assets.gmail_logo} alt="Email me" />
           </Link>
         </div>
-      </nav>
+      </motion.nav>
       <aside>
-        <p>
+        <motion.p
+          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0, y: 100 }}
+          transition={{ duration: 0.9 }}
+        >
           Copyright © {new Date().getFullYear()} - All right reserved by
           <Link
             className="ml-2 underline text-primary"
@@ -63,7 +77,7 @@ const Footer = () => {
           >
             Abdullah Al Mamun
           </Link>
-        </p>
+        </motion.p>
       </aside>
     </footer>
   );

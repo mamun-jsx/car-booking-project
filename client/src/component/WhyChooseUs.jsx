@@ -1,5 +1,6 @@
 import { CheckCircle, Clock, DollarSign, ThumbsUp } from "lucide-react";
 import Title from "./Title";
+import { motion } from "motion/react";
 
 export default function WhyChooseUs() {
   const reasons = [
@@ -30,7 +31,12 @@ export default function WhyChooseUs() {
   ];
 
   return (
-    <section className="py-16 bg-gray-50">
+    <section
+      whileInView={{ opacity: 1, y: 0 }}
+      initial={{ opacity: 0, y: 100 }}
+      transition={{ duration: 0.9 }}
+      className="py-16 bg-gray-50"
+    >
       <div className="max-w-6xl mx-auto px-6 text-center">
         <Title
           title={"Why Choose Us"}
@@ -39,7 +45,12 @@ export default function WhyChooseUs() {
           }
         />
 
-        <div className="grid gap-8 sm:grid-cols-2 mt-10 lg:grid-cols-4">
+        <motion.div
+          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0, y: 100 }}
+          transition={{ duration: 0.9 }}
+          className="grid gap-8 sm:grid-cols-2 mt-10 lg:grid-cols-4"
+        >
           {reasons.map((item) => (
             <div
               key={item.id}
@@ -52,7 +63,7 @@ export default function WhyChooseUs() {
               <p className="text-gray-600 text-sm">{item.desc}</p>
             </div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );

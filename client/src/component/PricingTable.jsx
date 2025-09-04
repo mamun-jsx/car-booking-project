@@ -1,16 +1,23 @@
 import { assets } from "../assets/assets";
 import Title from "./Title";
-
+import { motion } from "motion/react";
 export default function PricingTable() {
   return (
     <section className="py-14 px-4 bg-base-200">
       <Title
         title={"Car Rental Pricing"}
-        subTitle={"Choose the right car that fits your needs. All cars are well performed no accident history. Good milage with perfect braking."}
+        subTitle={
+          "Choose the right car that fits your needs. All cars are well performed no accident history. Good milage with perfect braking."
+        }
       />
       <br />
       <br />
-      <div className="grid max-w-7xl mx-auto gap-6 md:grid-cols-3">
+      <motion.div
+        whileInView={{ opacity: 1, x: 0 }}
+        initial={{ opacity: 0, x: -100 }}
+        transition={{ duration: 1.2 }}
+        className="grid max-w-7xl mx-auto gap-6 md:grid-cols-3"
+      >
         {/* Small Cars */}
         <div className="card w-full bg-base-100 shadow-md hover:shadow-lg transition">
           <div className="card-body">
@@ -101,7 +108,7 @@ export default function PricingTable() {
             </div>
           </div>
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 }

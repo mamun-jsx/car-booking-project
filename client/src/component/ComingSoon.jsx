@@ -1,4 +1,5 @@
 import { assets } from "../assets/assets";
+import { motion } from "motion/react";
 
 export default function ComingSoon() {
   return (
@@ -6,21 +7,35 @@ export default function ComingSoon() {
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-10">
         {/* Left side text */}
         <div className="flex-1">
-          <h2 className="text-3xl md:text-5xl font-bold primary-color mb-4">
+          <motion.h2
+            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, y: -100 }}
+            transition={{ duration: 1 }}
+            className="text-3xl md:text-5xl font-bold primary-color mb-4"
+          >
             Coming Soon - motorcycles
-          </h2>
-          <p className="text-gray-600 text-sm md:text-base leading-relaxed">
+          </motion.h2>
+          <motion.p
+            whileInView={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, x: 100 }}
+            transition={{ duration: 1 }}
+            className="text-gray-600 text-sm md:text-base leading-relaxed"
+          >
             We are preparing to bring you an exciting collection of bikes — from
             high-performance <span className="font-semibold">sports bikes</span>
             , to stylish{" "}
             <span className="font-semibold">naked sports bikes</span>, and more.
             Stay tuned for the ultimate riding experience!
-          </p>
+          </motion.p>
         </div>
 
         {/* Right side image */}
         <div className="flex-1 flex justify-center">
-          <img
+          <motion.img
+            whileInView={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, x: 200 }}
+
+            transition={{ duration: 0.9 }}
             src={assets.bike_image1}
             alt="Sports Bike"
             className="max-w-full h-auto rounded-lg drop-shadow-2xl"
