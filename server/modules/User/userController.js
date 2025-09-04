@@ -1,4 +1,6 @@
 import User from "./userSchema.js";
+import fs from "fs";
+import imageKit from "../../config/imagekit.js";
 
 // create a single user
 export const registerUser = async (req, res) => {
@@ -92,5 +94,30 @@ export const getUserData = async (req, res) => {
   } catch (error) {
     console.log(error.message);
     res.json({ success: false, message: error?.message });
+  }
+};
+
+// user will update the profile image;
+export const updateUserImage = async (req, res) => {
+  try {
+    const { _id } = req.body;
+    const imageFile = req.file;
+    // upload Image to imageKit
+    const fileBuffer = fs.readFileSync(imageFile.path);
+    const response = await imageKit.upload({
+      file: fileBuffer,
+      fileName: imageFile.originalname,
+      folder: "/user",
+    });
+    var optimizedImageUrl = imageKit.url({
+      path: response.filePath,
+      transformation: [{ width: 400 }, { quality: "auto" }, { format: "webp" }],
+    });
+    const image = optimizedImageUrl;
+    await User.findOneAndUpdate(_id, { image });
+    res.json({ success: true, message: "Profile picture updated" });
+  } catch (error) {
+    console.log(error.message);
+    res.json({ success: false, message: error.message });
   }
 };

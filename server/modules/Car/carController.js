@@ -1,6 +1,7 @@
 import fs from "fs";
 import imageKit from "../../config/imagekit.js";
 import Car from "./carSchema.js";
+import Booking from "../Booking/bookingSchema.js";
 
 //! Create a single Car
 export const addCar = async (req, res) => {
@@ -185,12 +186,35 @@ export const deleteCar = async (req, res) => {
 };
 
 // Api to show Dashboard data
-// export const getDashboardData = async (req, res) => {
-//   try {
-//     const { ownerId: owner } = req.body;
-//     const cars = await Car.find({ owner });
-//   } catch (error) {
-//     console.log(error?.message);
-//     res.json({ success: false, message: error.message });
-//   }
-// };
+
+export const getDashboardData = async (req, res) => {
+  try {
+    const { ownerId: owner } = req.body;
+    const cars = await Car.find({ owner });
+    const bookings = await Booking.find({ owner })
+      .populate("car")
+      .sort({ createdAt: -1 });
+    const pendingBookings = await Booking.find({ owner, status: "pending" });
+    const completedBookings = await Booking.find({
+      owner,
+      status: "confirmed",
+    });
+    // calculate monthly revenue from bookings status is confirmed
+    const monthlyRevenue = bookings
+      .slice()
+      .filter((booking) => booking.status === "confirmed")
+      .reduce((acc, booking) => acc + booking.price, 0);
+    const dashboardData = {
+      totalCars: cars.length,
+      totalBookings: bookings.length,
+      pendingBookings: pendingBookings.length,
+      completedBookings: completedBookings.length,
+      resentBookings: bookings.slice(0, 3),
+      monthlyRevenue,
+    }
+    res.json({ success: true, dashboardData });
+  } catch (error) {
+    console.log(error?.message);
+    res.json({ success: false, message: error.message });
+  }
+}

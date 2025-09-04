@@ -3,6 +3,7 @@
 // get ---->http://localhost:4000/api/auth/read-user
 
 // get ---->http://localhost:4000/api/auth/user/mam@gmail.com
+// TODO: post ---->http://localhost:4000/api/auth/user/update-image
 
 //! --------------------------------user apis Ends-----------------------------
 
@@ -12,6 +13,7 @@
 // get (Dashboard car List) ----> http://localhost:4000/api/owner/:ownerId/cars
 // patch  (Dashboard car available) ----> http://localhost:4000/api/owner/dashboard/:carId/toggle
 // delete (Dashboard car delete) ----> http://localhost:4000/api/owner/dashboard-delete/:carId
+// get (Dashboard Data) ----> http://localhost:4000/api/owner/dashboard-data
 
 // ?----------------------------------| Car Apis Ends |----------------------------------------
 
