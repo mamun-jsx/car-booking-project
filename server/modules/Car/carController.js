@@ -168,7 +168,7 @@ export const toggleCarAvailability = async (req, res) => {
 //  Delete a single car
 export const deleteCar = async (req, res) => {
   try {
-    const { carId, ownerId } = req.params;
+    const { carId, ownerId } = req.body;
 
     const car = await Car.findById(carId);
     if (!car) {

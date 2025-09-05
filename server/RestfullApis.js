@@ -12,8 +12,8 @@
 // get (all car with user Info) ----> http://localhost:4000/api/read-all-cars //!DONE
 // get (Dashboard car List) ----> http://localhost:4000/api/owner/:ownerId/cars //! DONE
 // patch  (Dashboard car available) ----> http://localhost:4000/api/owner/dashboard/:carId/toggle
-// get  (get a single car) ----> http://localhost:4000/api/read-car/:id
-// delete (Dashboard car delete) ----> http://localhost:4000/api/owner/dashboard-delete/:carId
+// get  (get a single car) ----> http://localhost:4000/api/read-car/:id //! DONE
+// delete (Dashboard car delete) ----> http://localhost:4000/api/owner/delete-car //! Done
 // get (Dashboard Data) ----> http://localhost:4000/api/owner/:owner/dashboard-data
 
 // ?----------------------------------| Car Apis Ends |----------------------------------------

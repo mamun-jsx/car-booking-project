@@ -9,15 +9,64 @@ import Swal from "sweetalert2";
 const ManageCars = () => {
   const { dbUser } = useRole();
   const ownerId = dbUser?._id;
-
+  // api/owner/delete-car
   const fetchCars = async (ownerId) => {
     const response = await axiosInstance.get(`api/owner/${ownerId}/cars`);
     return response.data;
   };
+  // useQuery to fetch
   const { data, refetch, isLoading, error } = useQuery({
     queryKey: ["cars", ownerId],
     queryFn: () => fetchCars(ownerId),
   });
+  // request for delete a single car
+  const handleDeleteCar = async (_id) => {
+    try {
+      const carId = _id; // car id
+
+      // show confirmation BEFORE deletion
+      const result = await Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!",
+      });
+
+      if (!result.isConfirmed) return; // stop if user canceled
+
+      // axios.delete requires
+      const response = await axiosInstance.delete("api/owner/delete-car", {
+        data: { ownerId, carId },
+      });
+
+      if (response.data.success) {
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: "Data is deleted successfully",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        refetch(); // refresh list {tanStackQuery Function}
+      } else {
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: response.data.message || "Failed to delete car",
+        });
+      }
+    } catch (error) {
+      console.log(error);
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: error.message || "Something went wrong",
+      });
+    }
+  };
 
   if (isLoading) {
     return <Loading />;
@@ -29,6 +78,7 @@ const ManageCars = () => {
       text: `${error?.message}`,
     });
   }
+
   return (
     <section className="px-4 pt-10 md:px-10 w-full">
       <OwnerTitle
@@ -75,7 +125,7 @@ const ManageCars = () => {
                   <td>{car?.category}</td>
                   <td>$ {car?.pricePerDay}</td>
                   <th>
-                    {car?.isAvaliable ? (
+                    {car?.isAvailable ? (
                       <span className="bg-green-300 p-1 rounded animate-pulse text-green-600">
                         Available
                       </span>
@@ -89,7 +139,10 @@ const ManageCars = () => {
                     <button className="pointer">
                       <img src={assets.eye_icon} className="" alt="" />
                     </button>
-                    <button className="pointer">
+                    <button
+                      onClick={() => handleDeleteCar(car._id)}
+                      className="pointer"
+                    >
                       <img src={assets.delete_icon} className="" alt="" />
                     </button>
                   </th>
