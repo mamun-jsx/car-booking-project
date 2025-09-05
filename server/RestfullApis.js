@@ -1,8 +1,8 @@
 // !--------------------------------user apis Start-----------------------------
-// post ---->http://localhost:4000/api/auth/user
-// get ---->http://localhost:4000/api/auth/read-user
+// post ---->http://localhost:4000/api/auth/user //! done
+// get ---->http://localhost:4000/api/auth/read-user //!Done
 
-// get ---->http://localhost:4000/api/auth/user/mam@gmail.com
+// get ---->http://localhost:4000/api/auth/user/mam@gmail.com 
 // TODO: post ---->http://localhost:4000/api/auth/user/update-image
 
 //! --------------------------------user apis Ends-----------------------------
@@ -14,7 +14,7 @@
 // patch  (Dashboard car available) ----> http://localhost:4000/api/owner/dashboard/:carId/toggle
 // get  (get a single car) ----> http://localhost:4000/api/read-car/:id //! DONE
 // delete (Dashboard car delete) ----> http://localhost:4000/api/owner/delete-car //! Done
-// get (Dashboard Data) ----> http://localhost:4000/api/owner/:owner/dashboard-data
+// get (Dashboard Data) ----> http://localhost:4000/api/owner/:owner/dashboard-data //! Done
 
 // ?----------------------------------| Car Apis Ends |----------------------------------------
 

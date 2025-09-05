@@ -12,7 +12,7 @@ const OwnerSidebar = () => {
     user.image = URL.createObjectURL(image);
     setImage("");
   };
-
+  
   const userEmail = user?.email;
   const positionOfAt = userEmail.indexOf("@");
   const userNameIs = userEmail?.slice(0, positionOfAt);

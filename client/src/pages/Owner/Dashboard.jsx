@@ -1,14 +1,15 @@
-import React, { useContext, useEffect, useState } from "react";
-import { assets, dummyDashboardData } from "../../assets/assets";
+import React, { useEffect, useState } from "react";
+import { assets } from "../../assets/assets";
 import OwnerTitle from "../../component/Owner/OwnerTitle";
-import { AuthContext } from "../../Config/Provider/AuthProvider";
+import useRole from "../../hooks/useRole";
+import { useQuery } from "@tanstack/react-query";
+import axiosInstance from "../../Config/Axios/AxiosIntance";
+import Loading from "../../component/Loading";
 
 const Dashboard = () => {
-  const { user } = useContext(AuthContext);
-  // console.log("your email -- ",`>`,user?.email,);
+  const { dbUser } = useRole();
 
-
-
+  const ownerId = dbUser?._id;
 
   const [data, setData] = useState({
     totalCars: 0,
@@ -36,11 +37,30 @@ const Dashboard = () => {
       icon: assets.listIconColored,
     },
   ];
-  //   load the data
+
+  // Query to get data from backend
+  const {
+    data: dashboard,
+    isLoading,
+    isError,
+  } = useQuery({
+    queryKey: ["dashboard", ownerId],
+    queryFn: async () => {
+      const response = await axiosInstance.get(
+        `api/owner/${ownerId}/dashboard-data`
+      );
+      return response.data.dashboardData; 
+    },
+    enabled: !!ownerId, // only run if ownerId exists
+  });
+
   useEffect(() => {
-    setData(dummyDashboardData);
-  }, []);
-  return (
+    if (dashboard) setData(dashboard);
+  }, [dashboard]);
+  if (isError) return <p>Error loading dashboard......</p>;
+  return isLoading ? (
+    <Loading />
+  ) : (
     <section className="px-4 pt-10 md:px-10 flex-1">
       <OwnerTitle
         title={"Admin Dashboard"}
@@ -49,7 +69,9 @@ const Dashboard = () => {
         }
       />
       {/* top cards section starts */}
-      <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 my-8 max-w-3xl">
+      <div
+        className={`grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 my-8 max-w-3xl`}
+      >
         {dashBoardCards.map((card, idx) => (
           <div
             className="flex gap-2 items-center justify-between p-4 rounded-md border border-[#b2b0e8]"
@@ -81,7 +103,7 @@ const Dashboard = () => {
           </h1>
           <p className="text-sm text-gray-500">Latest customer bookings</p>
 
-          {data.recentBookings.map((booking, idx) => (
+          {data?.recentBookings?.map((booking, idx) => (
             <div
               key={idx}
               className="mt-5 flex items-center justify-between border-b border-gray-100 pb-4 last:border-0 last:pb-0"
