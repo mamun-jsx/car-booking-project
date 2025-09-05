@@ -1,10 +1,37 @@
 import React, { useState } from "react";
 import Title from "../../component/Title";
-import { assets, dummyCarData } from "../../assets/assets";
+import { assets } from "../../assets/assets";
 import CarCard from "../../component/Card/CarCard";
+import { useQuery } from "@tanstack/react-query";
+import axiosInstance from "../../Config/Axios/AxiosIntance";
+import Loading from "../../component/Loading";
 
 const Cars = () => {
   const [input, setInput] = useState();
+
+  // ! fetch data from backend
+  const {
+    data: cars,
+    isLoading,
+    error,
+  } = useQuery({
+    queryKey: ["cars"],
+    queryFn: async () => {
+      const response = await axiosInstance.get("/api/read-all-cars");
+      return response.data;
+    },
+  });
+
+  if (isLoading) {
+    return <Loading />;
+  }
+  if (error) {
+    return (
+      <h3 className="text-2xl text-center text-red-400 my-2 py-3">
+        Error : {error?.message}{" "}
+      </h3>
+    );
+  }
   return (
     <section>
       <div className="flex flex-col items-center py-30 bg-gray-50 max-md:px-4">
@@ -31,9 +58,11 @@ const Cars = () => {
 
       {/* content area  */}
       <div className="px-6 md:px-16 lg:px-24 xl:px-32 mt-10">
-        <p className="text-gray-500 max-w-7xl mx-auto xl:px-20">Showing {dummyCarData?.length} Cars </p>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-4 xl:px-20 max-w-7xl mx-auto">
-          {dummyCarData?.map((car) => {
+        <p className="text-gray-500 max-w-7xl mx-auto xl:px-20">
+          Showing {cars?.count} Cars{" "}
+        </p>
+        <div className="grid grid-cols-1 sm:grid-cols-2 my-10 lg:grid-cols-3 gap-8 mt-4 xl:px-20 max-w-7xl mx-auto">
+          {cars?.cars?.map((car) => {
             return (
               <div key={car?._id}>
                 <CarCard car={car} />

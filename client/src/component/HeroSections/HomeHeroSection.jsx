@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import { assets, cityList } from "../../assets/assets";
+import { motion } from "motion/react";
 
 const HomeHeroSection = () => {
   const [pickupLocation, setPickupLocation] = useState("");
   return (
     <section className="h-screen flex flex-col justify-center items-center gap-14 bg-light text-center">
       {" "}
-    <h1 className="text-4xl md:text-5xl font-semibold">
+      <h1 className="text-4xl md:text-5xl font-semibold">
         All Types Of Car On Rent
       </h1>
       {/* form input */}
@@ -76,7 +77,14 @@ const HomeHeroSection = () => {
         </div>
       </form>
       {/* bottom car image */}
-      <img src={assets.main_car} alt="car image" className="max-h-74" />
+      <motion.img
+        whileInView={{ opacity: 1, x: 0 }}
+        initial={{ opacity: 1, x: 700 }}
+        transition={{duration:1.2}}
+        src={assets.main_car}
+        alt="car image"
+        className="max-h-74"
+      />
     </section>
   );
 };
