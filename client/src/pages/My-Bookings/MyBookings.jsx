@@ -1,17 +1,35 @@
-import React, { useEffect, useState } from "react";
-import { assets, dummyMyBookingsData } from "../../assets/assets";
+import { assets } from "../../assets/assets";
 import Title from "../../component/Title";
+import { useQuery } from "@tanstack/react-query";
+import useRole from "../../hooks/useRole";
+import axiosInstance from "../../Config/Axios/AxiosIntance";
+import Loading from "../../component/Loading";
+import { useNavigate } from "react-router-dom";
 
 const MyBookings = () => {
-  const [bookings, setBookings] = useState();
+  const { dbUser } = useRole();
+  const _id = dbUser?._id; // get the current use's id and pass to backend
+  const navigate = useNavigate();
+  //  ! react query
+  const {
+    data: bookings,
+    isLoading,
+    isError,
+  } = useQuery({
+    queryKey: ["myBooking", _id],
+    queryFn: async () => {
+      const response = await axiosInstance.get(`api/user-booking/${_id}`); // axios to fetch data
+      return response.data;
+    },
+    enabled: !!_id,
+  });
 
-  const fetchMyBookings = async () => {
-    setBookings(dummyMyBookingsData);
-  };
-  useEffect(() => {
-    fetchMyBookings();
-  }, []);
-
+  if (isLoading) {
+    return <Loading />;
+  }
+  if (isError) {
+    return <h2>Error... </h2>;
+  }
   return (
     <section className="px-6 md:px-16 lg:px-24 xl:px-32 2xl:px-48 mt-16 mb-10 text-sm max-w-7xl">
       <Title
@@ -19,10 +37,29 @@ const MyBookings = () => {
         subTitle={"Vew and manage your all car bookings"}
         align={"left"}
       />
-      <div className="">
-        {bookings?.map((booking, idx) => (
+
+      {bookings?.bookings.length === 0 && (
+        <p className="my-10 text-lg text-primary">
+          You Do Not Book Any Car Yet...
+          <br />
+          <button
+            onClick={() => {
+              navigate("/cars");
+              scrollTo(0, 0);
+            }}
+            className="flex animate-bounce items-center justify-center pointer rounded-md mt-18 hover:bg-primary hover:text-white gap-2 px-6 py-2 border border-[#b2b0e8]"
+          >
+            Explore All Cars <img src={assets?.arrow_icon} alt="arrow icon" />{" "}
+          </button>
+        </p>
+      )}
+
+      <div
+        className={`${bookings?.bookings.length === 0 ? "hidden" : "block"}`}
+      >
+        {bookings?.bookings?.map((booking, idx) => (
           <div
-            className="grid grid-cols-1 md:grid-cols-4 gap-6 p-6 border border-[#b2b0e8] rounded-lg mt-5 first:mt-12"
+            className="grid grid-cols-1 md:grid-cols-4 gap-6 p-6 border  border-[#b2b0e8] rounded-lg mt-5 first:mt-12"
             key={booking?._id}
           >
             {/* Car Image and Information  */}
@@ -95,7 +132,9 @@ const MyBookings = () => {
             <div className="md:col-span-1 flex flex-col justify-between gap-6">
               <div className="text-sm text-gray-500 text-right">
                 <p>Total Price</p>
-                <h1 className="text-2xl my-1 font-semibold text-primary">$ {booking?.price}</h1>
+                <h1 className="text-2xl my-1 font-semibold text-primary">
+                  $ {booking?.price}
+                </h1>
                 <p>Booking on {booking?.createdAt.split("T")[0]} </p>
               </div>
             </div>

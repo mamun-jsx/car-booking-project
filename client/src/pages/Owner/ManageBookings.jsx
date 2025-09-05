@@ -1,18 +1,28 @@
-import React, { useEffect, useState } from "react";
-import { dummyMyBookingsData } from "../../assets/assets";
 import Loading from "../../component/Loading";
 import OwnerTitle from "../../component/Owner/OwnerTitle";
+import useRole from "../../hooks/useRole";
+import { useQuery } from "@tanstack/react-query";
+import axiosInstance from "../../Config/Axios/AxiosIntance";
 
 const ManageBookings = () => {
-  const [bookings, setBookings] = useState([]);
-  const fetchOwnerBookings = async () => {
-    setBookings(dummyMyBookingsData);
-  };
-  useEffect(() => {
-    fetchOwnerBookings();
-  }, []);
-  if (bookings.length == 0) return <Loading />;
+  const { dbUser } = useRole();
+  const ownerId = dbUser?._id;
 
+  const {
+    data: bookings,
+    isLoading,
+    isError,
+  } = useQuery({
+    queryKey: ["ownerBooking", ownerId],
+    queryFn: async () => {
+      const response = await axiosInstance.get(`api/owner-booking/${ownerId}`);
+      return response.data.bookings;
+    },
+  });
+  console.log("data from backend", bookings);
+
+  if (isLoading) return <Loading />;
+  if (isError) return <h3>Error loading bookings</h3>;
   return (
     <section className="px-4 pt-10 md:px-10 w-full">
       <OwnerTitle
@@ -21,8 +31,18 @@ const ManageBookings = () => {
           "view all list cars, update their details, or remove them from the booking platform"
         }
       />
+      {/* if data is empty  */}
+      {bookings?.length === 0 && (
+        <p className="text-primary my-10 text-lg animate-pulse">
+          User did not booked your car yet ...
+        </p>
+      )}
       {/* table area  */}
-      <div className="overflow-x-auto mt-10">
+      <div
+        className={`overflow-x-auto mt-10 ${
+          bookings?.length === 0 ? "hidden" : "block"
+        }`}
+      >
         <table className="table">
           {/* head */}
           <thead>
