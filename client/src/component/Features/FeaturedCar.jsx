@@ -2,10 +2,31 @@ import { useNavigate } from "react-router-dom";
 import { assets, dummyCarData } from "../../assets/assets";
 import CarCard from "../Card/CarCard";
 import Title from "../Title";
+import { useQuery } from "@tanstack/react-query";
+import axiosInstance from "../../Config/Axios/AxiosIntance";
+import Loading from "../Loading";
+import Swal from "sweetalert2";
 
 const FeaturedCar = () => {
   const navigate = useNavigate();
+  const { data, isLoading, error } = useQuery({
+    queryKey: ["cars"],
+    queryFn: async () => {
+      const response = await axiosInstance.get("/api/read-all-cars");
+      return response.data;
+    },
+  });
 
+  if (isLoading) {
+    return <Loading />;
+  }
+  if (error) {
+    return Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: `${error?.message}`,
+    });
+  }
   return (
     <section className="flex flex-col items-center py-24 px-6 md:px-16 lg:px-24 xl:px-32">
       <div>
@@ -18,11 +39,12 @@ const FeaturedCar = () => {
       </div>
       {/* card component */}
       <main className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-20">
-        {dummyCarData?.slice(0, 6).map((car) => (
-          <div key={car?._id}>
-            <CarCard key={car?._id} car={car} />
-          </div>
-        ))}
+        {!isLoading &&
+          data?.cars?.slice(0, 6).map((car) => (
+            <div key={car?._id}>
+              <CarCard key={car?._id} car={car} />
+            </div>
+          ))}
       </main>
       <button
         onClick={() => {

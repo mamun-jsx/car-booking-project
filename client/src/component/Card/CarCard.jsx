@@ -6,7 +6,7 @@ const CarCard = ({ car }) => {
   return (
     <div
       onClick={() => {
-        navigate(`/car-details/${car._id}`);
+        navigate(`/car-details/${car?._id}`);
         scrollTo(0, 0);
       }}
       className="card  bg-base-100 shadow-sm h-full pointer"

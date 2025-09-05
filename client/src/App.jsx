@@ -37,8 +37,8 @@ function App() {
         <Route path="/cars" element={<Cars />} />
         <Route path="/my-bookings" element={<MyBookings />} />
         <Route path="/my-user" element={<AllUser />} />
-        {/* -------------------------------------- ------- ------- ------- ------- */}
-        {/* ---------------- ------- ---------Car Owner Route-------------------- */}
+        {/* ------------------------------------------------------------------ */}
+        {/* --------------------------------Car Owner Route-------------------- */}
         {/* --------------------------------------------- ------- ------- -------  */}
         <Route path="/owner" element={<OwnerLayout />}>
           <Route index element={<Dashboard />} />

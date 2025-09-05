@@ -77,6 +77,17 @@ export const addCar = async (req, res) => {
   }
 };
 
+// get a single car by id
+export const getCarById = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const carDetails = await Car.findById(id);
+    res.json({ success: true, carDetails });
+  } catch (error) {
+    console.log(error, error?.message);
+    res.json({ success: false, message: error.message });
+  }
+};
 // get all cars with Owner info
 
 export const getAllCars = async (req, res) => {
@@ -189,7 +200,7 @@ export const deleteCar = async (req, res) => {
 
 export const getDashboardData = async (req, res) => {
   try {
-    const { ownerId: owner } = req.body;
+    const { ownerId: owner } = req.params;
     const cars = await Car.find({ owner });
     const bookings = await Booking.find({ owner })
       .populate("car")
@@ -211,10 +222,10 @@ export const getDashboardData = async (req, res) => {
       completedBookings: completedBookings.length,
       resentBookings: bookings.slice(0, 3),
       monthlyRevenue,
-    }
+    };
     res.json({ success: true, dashboardData });
   } catch (error) {
     console.log(error?.message);
     res.json({ success: false, message: error.message });
   }
-}
+};

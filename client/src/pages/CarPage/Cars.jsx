@@ -5,6 +5,7 @@ import CarCard from "../../component/Card/CarCard";
 import { useQuery } from "@tanstack/react-query";
 import axiosInstance from "../../Config/Axios/AxiosIntance";
 import Loading from "../../component/Loading";
+import { motion } from "motion/react";
 
 const Cars = () => {
   const [input, setInput] = useState();
@@ -41,7 +42,12 @@ const Cars = () => {
             "Brows our selection of premium vehicles available for your next adventure"
           }
         />
-        <div className="flex items-center justify-center bg-white px-4 mt-6 max-w-140 w-full h-12 rounded-full shadow">
+        <motion.div
+          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0, y: 200 }}
+          transition={{ duration: 0.9 }}
+          className="flex items-center justify-center bg-white px-4 mt-6 max-w-140 w-full h-12 rounded-full shadow"
+        >
           <img src={assets.search_icon} alt="" className="w-4.5 h-4.5 mr-2" />
 
           {/* input for search */}
@@ -53,7 +59,7 @@ const Cars = () => {
             placeholder="Search by make, model , or features"
           />
           <img src={assets.filter_icon} alt="" className="w-4.5 h-4.5 mr-2" />
-        </div>
+        </motion.div>
       </div>
 
       {/* content area  */}

@@ -1,3 +1,4 @@
 {
-  "cSpell.words": ["availavail"]
+  "cSpell.words": ["availavail"],
+  "postman.settings.dotenv-detection-notification-visibility": false
 }

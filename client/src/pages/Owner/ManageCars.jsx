@@ -19,8 +19,6 @@ const ManageCars = () => {
     queryFn: () => fetchCars(ownerId),
   });
 
-  console.log("users data into dashboard--- ", data);
-
   if (isLoading) {
     return <Loading />;
   }
