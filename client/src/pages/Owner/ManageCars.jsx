@@ -9,7 +9,7 @@ import Swal from "sweetalert2";
 const ManageCars = () => {
   const { dbUser } = useRole();
   const ownerId = dbUser?._id;
-  // api/owner/delete-car
+  // fetch car function and pass to queryFn
   const fetchCars = async (ownerId) => {
     const response = await axiosInstance.get(`api/owner/${ownerId}/cars`);
     return response.data;
@@ -19,6 +19,15 @@ const ManageCars = () => {
     queryKey: ["cars", ownerId],
     queryFn: () => fetchCars(ownerId),
   });
+  // ! check does car is avail avail or not
+  const handleToggleAvailable = async (carId) => {
+    const response = await axiosInstance.patch(
+      `/api/owner/dashboard/${carId}/toggle/${ownerId}`
+    );
+    if (response.data.success) {
+      refetch();
+    }
+  };
   // request for delete a single car
   const handleDeleteCar = async (_id) => {
     try {
@@ -135,15 +144,27 @@ const ManageCars = () => {
                       </span>
                     )}
                   </th>
-                  <th>
-                    <button className="pointer">
-                      <img src={assets.eye_icon} className="" alt="" />
+                  <th className="flex items-center justify-start">
+                    <button
+                      className="pointer TOGGLE-BUTTON"
+                      onClick={() => handleToggleAvailable(car?._id)}
+                    >
+                      <input
+                        type="checkbox"
+                        checked={car?.isAvailable}
+                        readOnly
+                        className="toggle toggle-primary"
+                      />
                     </button>
                     <button
+                      className="pointer DELETE-BUTTON"
                       onClick={() => handleDeleteCar(car._id)}
-                      className="pointer"
                     >
-                      <img src={assets.delete_icon} className="" alt="" />
+                      <img
+                        src={assets.delete_icon}
+                        className="hover:scale-150 hover:brightness-200"
+                        alt=""
+                      />
                     </button>
                   </th>
                 </tr>

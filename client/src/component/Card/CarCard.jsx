@@ -28,7 +28,7 @@ const CarCard = ({ car }) => {
             <span>
               {car?.brand} {car?.model}
             </span>
-            {car.isAvaliable && (
+            {car.isAvailable && (
               <div className="badge animate-pulse bg-green-700 text-white">Available</div>
             )}
           </h2>
