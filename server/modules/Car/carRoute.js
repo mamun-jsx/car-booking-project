@@ -22,7 +22,7 @@ carRoute.post(
 carRoute.get("/read-all-cars", getAllCars);
 carRoute.get("/read-car/:id", getCarById);
 carRoute.get("/owner/:ownerId/cars", getOwnerCars);
-carRoute.patch("/owner/dashboard/:carId/toggle", toggleCarAvailability);
+carRoute.patch("/owner/dashboard/:carId/toggle/:ownerId", toggleCarAvailability);
 carRoute.delete("/owner/delete-car", deleteCar);
 carRoute.get("/owner/:owner/dashboard-data", getDashboardData);
 

@@ -200,7 +200,7 @@ export const deleteCar = async (req, res) => {
 
 export const getDashboardData = async (req, res) => {
   try {
-    const { ownerId: owner } = req.params;
+    const { owner } = req.params;
     const cars = await Car.find({ owner });
     const bookings = await Booking.find({ owner })
       .populate("car")

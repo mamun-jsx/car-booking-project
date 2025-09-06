@@ -70,6 +70,21 @@ const AddCar = () => {
           showConfirmButton: false,
           timer: 1500,
         });
+        // manual reset the form
+        setCar({
+          brand: "",
+          model: "",
+          year: 0,
+          pricePerDay: 0,
+          category: "",
+          transmission: "",
+          fuel_type: "",
+          seating_capacity: 0,
+          location: "",
+          description: "",
+        });
+        // manual reset image file 
+        setImage(null);
       }
     } catch (error) {
       console.error(error.response?.data || error.message);
