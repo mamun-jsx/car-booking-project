@@ -1,9 +1,26 @@
 import React, { useState } from "react";
 import { assets, cityList } from "../../assets/assets";
 import { motion } from "motion/react";
+import { useNavigate } from "react-router-dom";
 
 const HomeHeroSection = () => {
   const [pickupLocation, setPickupLocation] = useState("");
+  const [pickupDate, setPickupDate] = useState();
+  const [returnDate, setReturnDate] = useState();
+  const navigate = useNavigate();
+  const handleFormSubmit = async (e) => {
+    e.preventDefault();
+    console.log("form is clicked");
+    navigate(
+      "/cars?pickupLocation=" +
+        pickupLocation +
+        "&pickupDate=" +
+        pickupDate +
+        "&returnDate=" +
+        returnDate
+    );
+  };
+
   return (
     <section className="h-screen flex flex-col justify-center items-center gap-14 bg-light text-center">
       {" "}
@@ -12,6 +29,7 @@ const HomeHeroSection = () => {
       </h1>
       {/* form input */}
       <form
+        onSubmit={handleFormSubmit}
         className="flex flex-col md:flex-row items-start md:items-center justify-between p-6 rounded-lg md:rounded-full w-full md:max-w-200 bg-white max-w-80
       shadow-[0px_8px_20px_rgba(0,0,0,0.1)]"
       >
@@ -48,7 +66,8 @@ const HomeHeroSection = () => {
               required
               type="date"
               id="pickup-date"
-              value={new Date().toISOString().split("T")[0]} // ✅ sets today's date
+              value={pickupDate}
+              onChange={(e) => setPickupDate(e.target.value)}
               min={new Date().toISOString().split("T")[0]} // ✅ restricts past dates
               className="text-sm text-gray-500  rounded p-2"
             />
@@ -60,6 +79,8 @@ const HomeHeroSection = () => {
             <input
               type="date"
               id="return-date"
+              value={returnDate}
+              onChange={(e) => setReturnDate(e.target.value)}
               min={new Date().toISOString().split("T")[0]} // ✅ return can’t be before today
               className="text-sm text-gray-500  rounded p-2"
             />
@@ -80,7 +101,7 @@ const HomeHeroSection = () => {
       <motion.img
         whileInView={{ opacity: 1, x: 0 }}
         initial={{ opacity: 1, x: 700 }}
-        transition={{duration:1.2}}
+        transition={{ duration: 1.2 }}
         src={assets.main_car}
         alt="car image"
         className="max-h-74"

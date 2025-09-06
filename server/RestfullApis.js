@@ -20,10 +20,10 @@
 
 // *----------------------------------| Booking Apis Start|----------------------------------------
 
-// post (check availability ) ----> http://localhost:4000/api/check-availability
+// get (check availability ) ----> http://localhost:4000/api/check-availability //!DONE
 // post (user will booking date ) ----> http://localhost:4000/api/booking-create
 // get (user booking ) ----> http://localhost:4000/api/user-booking/:id //! Done
 // get (owner booking ) ----> http://localhost:4000/api/owner-booking/:ownerId //! DONE
-// post (change booking status ) ----> http://localhost:4000/api/change-booking-status
+// post (change booking status ) ----> http://localhost:4000/api/change-booking-status 
 
 // *----------------------------------| Booking Apis Ends|----------------------------------------

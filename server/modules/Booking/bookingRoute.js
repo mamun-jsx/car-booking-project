@@ -1,6 +1,6 @@
 import { Router } from "express";
 import {
-  checkAvailability,
+  checkAvailabilityOfCar,
   createBooking,
   getOwnerBooking,
   getUsersBooking,
@@ -8,7 +8,7 @@ import {
 
 const bookingRoute = Router();
 
-bookingRoute.post("/check-availability", checkAvailability);
+bookingRoute.get("/check-availability", checkAvailabilityOfCar);
 bookingRoute.post("/booking-create", createBooking);
 bookingRoute.get("/user-booking/:id", getUsersBooking);
 bookingRoute.get("/owner-booking/:ownerId", getOwnerBooking);

@@ -1,13 +1,12 @@
 import Car from "../Car/carSchema.js";
 import Booking from "./bookingSchema.js";
 
-
 // check does car is available on the selected date;
 export const checkAvailability = async (car, pickupDate, returnDate) => {
   const bookings = await Booking.find({
     car,
     pickupDate: { $lte: returnDate },
-    returnDate: { $get: pickupDate },
+    returnDate: { $gte: pickupDate },
   });
   return bookings.length === 0;
 };
@@ -16,25 +15,40 @@ export const checkAvailability = async (car, pickupDate, returnDate) => {
 
 export const checkAvailabilityOfCar = async (req, res) => {
   try {
-    const { location, pickupDate, returnDate } = req.body;
-    const cars = Car.find({ location, isAvailable: true });
-    //check car availability for given data range using promise
-    const availableCarsPromise = (await cars).map(async (car) => {
-      const isAvailable = await checkAvailability(
-        car._id,
-        pickupDate,
-        returnDate
-      );
-      return { ...car._doc, isAvailable: isAvailable };
+    // Use query parameters (frontend sends GET with params)
+    const { location, pickupDate, returnDate } = req.query;
+
+    if (!location || !pickupDate || !returnDate) {
+      return res
+        .status(400)
+        .json({ success: false, message: "Missing search parameters" });
+    }
+
+    // Convert dates to Date objects
+    const pickup = new Date(pickupDate);
+    const dropOff = new Date(returnDate);
+
+    // Fetch cars in the given location that are marked available
+    const cars = await Car.find({ location, isAvailable: true });
+
+    // Check availability for each car (no overlapping bookings)
+    const availableCarsPromise = cars.map(async (car) => {
+      const isAvailable = await checkAvailability(car._id, pickup, dropOff);
+      return { ...car.toObject(), isAvailable };
     });
+
     let availableCars = await Promise.all(availableCarsPromise);
-    availableCars = availableCars.filter((car) => car.isAvailable === true);
+
+    // Filter only cars that are available for the date range
+    availableCars = availableCars.filter((car) => car.isAvailable);
+
     res.json({ success: true, availableCars });
   } catch (error) {
-    console.log(error.message);
-    res.json({ success: false, message: error.message });
+    console.error(error.message);
+    res.status(500).json({ success: false, message: error.message });
   }
 };
+
 // user will book a car
 export const createBooking = async (req, res) => {
   try {
