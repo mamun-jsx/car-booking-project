@@ -21,28 +21,42 @@ const Cars = () => {
   const isSearchData = pickupLocation && pickupDate && returnDate;
 
   // API call to check availability
-const searchAvailability = async () => {
-  try {
-    const { data } = await axiosInstance.get("/api/check-availability", {
-      params: {
-        location: pickupLocation,
-        pickupDate,
-        returnDate,
-      },
-    });
+  const searchAvailability = async () => {
+    try {
+      const { data } = await axiosInstance.get("/api/check-availability", {
+        params: {
+          location: pickupLocation,
+          pickupDate,
+          returnDate,
+        },
+      });
 
-    if (data.success) {
-      setFilteredCars(data.availableCars || []);
-      if (!data.availableCars || data.availableCars.length === 0) {
-        alert("No cars available");
+      if (data.success) {
+        setFilteredCars(data.availableCars || []);
+        if (!data.availableCars || data.availableCars.length === 0) {
+          alert("No cars available");
+        }
       }
+    } catch (err) {
+      console.error("Failed to fetch available cars:", err.message);
     }
-  } catch (err) {
-    console.error("Failed to fetch available cars:", err.message);
-  }
-};
+  };
 
-
+  // apply filter to show cars 
+  const applyFilter = async () => {
+    if (input === "") {
+      setFilteredCars(cars?.cars);
+      return null;
+    }
+    const filtered = cars?.cars.slice().filter((c) => {
+      return (
+        c.brand.toLowerCase().includes(input.toLowerCase()) ||
+        c.category.toLowerCase().includes(input.toLowerCase()) ||
+        c.model.toLowerCase().includes(input.toLowerCase())
+      );
+    });
+    setFilteredCars(filtered);
+  };
 
   // Run searchAvailability when search params change
   useEffect(() => {
@@ -61,6 +75,9 @@ const searchAvailability = async () => {
       return response.data;
     },
   });
+  useEffect(() => {
+    cars?.cars.length > 0 && !isSearchData && applyFilter();
+  }, [input, cars]);
 
   if (isLoading) return <Loading />;
   if (error)
