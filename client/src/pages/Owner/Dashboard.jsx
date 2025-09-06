@@ -9,7 +9,7 @@ import Loading from "../../component/Loading";
 const Dashboard = () => {
   const { dbUser } = useRole();
 
-  const ownerId = dbUser?._id;
+  const owner = dbUser?._id;
 
   const [data, setData] = useState({
     totalCars: 0,
@@ -44,14 +44,14 @@ const Dashboard = () => {
     isLoading,
     isError,
   } = useQuery({
-    queryKey: ["dashboard", ownerId],
+    queryKey: ["dashboard", owner],
     queryFn: async () => {
       const response = await axiosInstance.get(
-        `api/owner/${ownerId}/dashboard-data`
+        `api/owner/${owner}/dashboard-data`
       );
-      return response.data.dashboardData; 
+      return response.data.dashboardData;
     },
-    enabled: !!ownerId, // only run if ownerId exists
+    enabled: !!owner, // only run if ownerId exists
   });
 
   useEffect(() => {
