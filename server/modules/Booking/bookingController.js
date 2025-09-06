@@ -1,7 +1,8 @@
 import Car from "../Car/carSchema.js";
 import Booking from "./bookingSchema.js";
-// check does car is available on the selected date;
 
+
+// check does car is available on the selected date;
 export const checkAvailability = async (car, pickupDate, returnDate) => {
   const bookings = await Booking.find({
     car,

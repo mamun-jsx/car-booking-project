@@ -16,10 +16,10 @@ const ManageBookings = () => {
     queryKey: ["ownerBooking", ownerId],
     queryFn: async () => {
       const response = await axiosInstance.get(`api/owner-booking/${ownerId}`);
+
       return response.data.bookings;
     },
   });
-  console.log("data from backend", bookings);
 
   if (isLoading) return <Loading />;
   if (isError) return <h3>Error loading bookings</h3>;

@@ -2,7 +2,7 @@
 // post ---->http://localhost:4000/api/auth/user //! done
 // get ---->http://localhost:4000/api/auth/read-user //!Done
 
-// get ---->http://localhost:4000/api/auth/user/mam@gmail.com
+// get ---->http://localhost:4000/api/auth/user/mam@gmail.com // !DONE
 // TODO: post ---->http://localhost:4000/api/auth/user/update-image
 
 //! --------------------------------user apis Ends-----------------------------
@@ -23,7 +23,7 @@
 // post (check availability ) ----> http://localhost:4000/api/check-availability
 // post (user will booking date ) ----> http://localhost:4000/api/booking-create
 // get (user booking ) ----> http://localhost:4000/api/user-booking/:id //! Done
-// get (owner booking ) ----> http://localhost:4000/api/owner-booking/:id //! DONE
+// get (owner booking ) ----> http://localhost:4000/api/owner-booking/:ownerId //! DONE
 // post (change booking status ) ----> http://localhost:4000/api/change-booking-status
 
 // *----------------------------------| Booking Apis Ends|----------------------------------------
