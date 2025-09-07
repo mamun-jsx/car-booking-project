@@ -3,15 +3,40 @@ import OwnerTitle from "../../component/Owner/OwnerTitle";
 import useRole from "../../hooks/useRole";
 import { useQuery } from "@tanstack/react-query";
 import axiosInstance from "../../Config/Axios/AxiosIntance";
-
+import Swal from "sweetalert2";
 const ManageBookings = () => {
   const { dbUser } = useRole();
+
   const ownerId = dbUser?._id;
+  // /api//change-booking-status
+  const handleChangeBookingStatus = async (bookingId, newStatus) => {
+    const response = await axiosInstance.post("/api/change-booking-status", {
+      bookingId,
+      status: newStatus,
+      ownerId,
+    });
+    if (response.data.success) {
+      Swal.fire({
+        icon: "success",
+        title: "Status Updated",
+        timer: 1500,
+        showConfirmButton: false,
+      });
+      refetch();
+    } else {
+      Swal.fire({
+        icon: "error",
+        title: "Failed",
+        text: response.data.message,
+      });
+    }
+  };
 
   const {
     data: bookings,
     isLoading,
     isError,
+    refetch,
   } = useQuery({
     queryKey: ["ownerBooking", ownerId],
     queryFn: async () => {
@@ -89,6 +114,9 @@ const ManageBookings = () => {
                   {booking?.status === "pending" ? (
                     <select
                       value={booking.status}
+                      onChange={(e) =>
+                        handleChangeBookingStatus(booking._id, e.target.value)
+                      }
                       className="px-2 py-1.5 mt-1 text-gray-500 border border-[#b2b0e8] rounded-md outline-none"
                     >
                       <option value="pending">Pending</option>

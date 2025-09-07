@@ -75,22 +75,31 @@ export const createBooking = async (req, res) => {
     });
     res.json({ success: true, message: "Booking done wait for confirmed" });
   } catch (error) {
-    console.log(error.message);
+ 
     res.json({ success: false, message: error.message });
   }
 };
 
 // api to list bookings
-export const getUsersBooking = async (req, res) => {
+// user-booking/:userId
+export const getBookingByUserId = async (req, res) => {
   try {
-    const { _id } = req.params;
-    const bookings = await Booking.find({ user: _id })
-      .populate("car") // attached car information
-      .sort({ createdAt: -1 }); // latest data comes first
-    res.json({ success: true, bookings });
+    const { userId } = req.params; // now using ID
+
+    if (!userId) {
+      return res
+        .status(400)
+        .json({ success: false, message: "User ID is required" });
+    }
+
+    const bookings = await Booking.find({ user: userId })
+      .populate("car")
+      .sort({ createdAt: -1 });
+
+    return res.json({ success: true, bookings });
   } catch (error) {
-    console.log(error.message);
-    res.json({ success: false, message: error.message });
+    console.error("getBookingByUserId error:", error.message);
+    return res.status(500).json({ success: false, message: error.message });
   }
 };
 
@@ -112,18 +121,37 @@ export const getOwnerBooking = async (req, res) => {
 // owner can update booking status
 
 export const changeBookingStatus = async (req, res) => {
-  const { bookingId, status, ownerId: owner } = req.body;
+  const { bookingId, status, ownerId } = req.body;
+
   try {
-    const booking = await Booking.findById(bookingId);
-    if (!owner) {
-      return res.json({ success: false, message: "Unauthorize " });
+    // Validate status
+    const validStatuses = ["pending", "confirmed", "cancelled"];
+    if (!validStatuses.includes(status)) {
+      return res
+        .status(400)
+        .json({ success: false, message: "Invalid status" });
     }
+
+    // Find booking
+    const booking = await Booking.findById(bookingId);
+    if (!booking) {
+      return res
+        .status(404)
+        .json({ success: false, message: "Booking not found" });
+    }
+
+    // Verify ownership
+    if (booking.owner !== ownerId) {
+      return res.status(403).json({ success: false, message: "Unauthorized" });
+    }
+
+    // Update status
     booking.status = status;
     await booking.save();
 
-    res.json({ success: true, message: "Status Updated" });
+    return res.json({ success: true, message: "Booking status updated" });
   } catch (error) {
-    console.log(error.message);
-    res.json({ success: false, message: error.message });
+    console.error("changeBookingStatus error:", error.message);
+    return res.status(500).json({ success: false, message: error.message });
   }
 };

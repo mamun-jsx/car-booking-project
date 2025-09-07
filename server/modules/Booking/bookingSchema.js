@@ -8,7 +8,7 @@ const bookingSchema = new mongoose.Schema(
       required: true,
     },
     car: { type: ObjectId, ref: "Car", required: true },
-    user: { type: ObjectId, ref: "User", required: true },
+    user: { type: String, ref: "User", required: true },
 
     // pickup date and return date
     pickupDate: { type: Date, required: true },

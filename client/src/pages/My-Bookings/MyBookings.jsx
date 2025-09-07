@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 
 const MyBookings = () => {
   const { dbUser } = useRole();
-  const _id = dbUser?._id; // get the current use's id and pass to backend
+  const userId = dbUser?._id; // get the current use's id and pass to backend
   const navigate = useNavigate();
   //  ! react query
   const {
@@ -16,12 +16,12 @@ const MyBookings = () => {
     isLoading,
     isError,
   } = useQuery({
-    queryKey: ["myBooking", _id],
+    queryKey: ["myBooking", userId],
     queryFn: async () => {
-      const response = await axiosInstance.get(`api/user-booking/${_id}`); // axios to fetch data
+      const response = await axiosInstance.get(`api/user-booking/${userId}`); // axios to fetch data
       return response.data;
     },
-    enabled: !!_id,
+    enabled: !!userId,
   });
 
   if (isLoading) {

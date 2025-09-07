@@ -10,7 +10,6 @@ const HomeHeroSection = () => {
   const navigate = useNavigate();
   const handleFormSubmit = async (e) => {
     e.preventDefault();
-    console.log("form is clicked");
     navigate(
       "/cars?pickupLocation=" +
         pickupLocation +

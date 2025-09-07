@@ -84,7 +84,7 @@ export const getCarById = async (req, res) => {
     const carDetails = await Car.findById(id);
     res.json({ success: true, carDetails });
   } catch (error) {
-    console.log(error, error?.message);
+
     res.json({ success: false, message: error.message });
   }
 };
@@ -99,7 +99,7 @@ export const getAllCars = async (req, res) => {
     }); //car with owner info
     res.json({ success: true, count: cars.length, cars });
   } catch (error) {
-    console.log("Error", error);
+
     res.json({
       success: false,
       message: "Failed to fetch data",
