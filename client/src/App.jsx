@@ -18,6 +18,7 @@ import ContactUs from "./pages/ContactUs";
 import { useContext } from "react";
 import { AuthContext } from "./Config/Provider/AuthProvider";
 import AllUser from "./AllUser";
+import UpdateUserRole from "./component/Owner/UpdateUserRole";
 
 function App() {
   const IsOwner = useLocation().pathname.startsWith("/owner");
@@ -45,6 +46,7 @@ function App() {
           <Route path="add-car" element={<AddCar />} />
           <Route path="manage-cars" element={<ManageCars />} />
           <Route path="manage-bookings" element={<ManageBookings />} />
+          <Route path="update-user" element={<UpdateUserRole />} />
         </Route>
       </Routes>
       <Footer />
@@ -53,4 +55,3 @@ function App() {
 }
 
 export default App;
-

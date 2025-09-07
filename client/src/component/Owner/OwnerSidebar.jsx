@@ -12,7 +12,7 @@ const OwnerSidebar = () => {
     user.image = URL.createObjectURL(image);
     setImage("");
   };
-  
+
   const userEmail = user?.email;
   const positionOfAt = userEmail.indexOf("@");
   const userNameIs = userEmail?.slice(0, positionOfAt);
@@ -78,6 +78,10 @@ const OwnerSidebar = () => {
             ></div>
           </NavLink>
         ))}
+        <NavLink className="ml-4 flex gap-2" to={"update-user"}>
+          <img src={assets.userIcon} className="h-6" alt="" />
+          Update User
+        </NavLink>
       </div>
     </section>
   );

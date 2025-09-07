@@ -60,14 +60,20 @@ export const getUserByEmail = async (req, res) => {
 };
 
 // ! update a single user by id
-
 export const updateUserById = async (req, res) => {
   try {
-    const { id } = req.params; // user id from URL
-    const { role } = req.body; // fields to update
+    const { id } = req.params; // user string ID from URL
+    const { role } = req.body; // new role
 
-    const updatedUser = await User.findByIdAndUpdate(
-      id,
+    // Validate role
+    const allowedRoles = ["user", "owner", "admin"];
+    if (!allowedRoles.includes(role)) {
+      return res.status(400).json({ success: false, message: "Invalid role" });
+    }
+
+    // Find user by string _id and update
+    const updatedUser = await User.findOneAndUpdate(
+      { _id: id },
       { role },
       { new: true, runValidators: true }
     );
@@ -78,12 +84,15 @@ export const updateUserById = async (req, res) => {
         .json({ success: false, message: "User not found" });
     }
 
-    res.json({ success: true, user: updatedUser });
+    return res.status(200).json({ success: true, user: updatedUser });
   } catch (error) {
     console.error("Error updating user:", error.message);
-    res.json({ success: false, message: "Failed to update user.." });
+    return res
+      .status(500)
+      .json({ success: false, message: "Failed to update user" });
   }
 };
+
 
 // get User data using Token (JWT)
 
@@ -92,7 +101,6 @@ export const getUserData = async (req, res) => {
     const { user } = req;
     res.json({ success: true, user });
   } catch (error) {
-
     res.json({ success: false, message: error?.message });
   }
 };
