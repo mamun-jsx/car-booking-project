@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const axiosInstance = axios.create({
-  baseURL: "http://localhost:4000/", // your backend base URL
+  baseURL: "https://car-server-7u32.onrender.com/",
   headers: {
     "Content-Type": "application/json",
   },
