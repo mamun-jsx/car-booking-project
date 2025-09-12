@@ -41,7 +41,7 @@ const ManageBookings = () => {
     queryKey: ["ownerBooking", ownerId],
     queryFn: async () => {
       const response = await axiosInstance.get(`api/owner-booking/${ownerId}`);
-
+    
       return response.data.bookings;
     },
   });
@@ -88,19 +88,19 @@ const ManageBookings = () => {
               >
                 <td className="p-3 flex items-center gap-3">
                   <img
-                    src={booking.car.image}
+                    src={booking?.car?.image}
                     className="h-12 w-12 aspect-square rounded-md object-cover"
                     alt=""
                   />
                   <p className="font-medium max-md:hidden">
                     {" "}
-                    {booking.car.model}
+                    {booking?.car?.model}
                   </p>
                 </td>
                 {/* date range info */}
                 <td className="p-3 max-md:hidden">
-                  From {booking.pickupDate.split("T")[0]} to{" "}
-                  {booking.returnDate.split("T")[0]}
+                  From {booking?.pickupDate.split("T")[0]} to{" "}
+                  {booking?.returnDate.split("T")[0]}
                 </td>
                 {/* Price Info */}
                 <td className="p-3">$ {booking?.price}</td>
@@ -131,7 +131,7 @@ const ManageBookings = () => {
                           : "bg-red-100 text-red-500"
                       }`}
                     >
-                      {booking.status}
+                      {booking?.status}
                     </span>
                   )}
                 </td>

@@ -44,7 +44,7 @@ const NavBar = () => {
             }}
           >
             <CarFront className="md:size-14 size-8 secondary-color" />
-            <span className="primary-color md:text-3xl animate-pulse">
+            <span className="primary-color text-[12px] font-semibold md:text-3xl animate-pulse">
               Safe Wheels
             </span>
           </button>
@@ -90,7 +90,9 @@ const NavBar = () => {
               )}
               {menuLinks?.map((link) => (
                 <li key={link.name}>
-                  <Link to={link.path}>{link.name}</Link>
+                  <Link onClick={() => scrollTo(0, 0)} to={link.path}>
+                    {link.name}
+                  </Link>
                 </li>
               ))}
               {user && (
