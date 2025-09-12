@@ -1,9 +1,18 @@
 @import "tailwindcss";
 @plugin "daisyui";
 
-::-webkit-scrollbar {
-  display: none;
+html,
+body {
+  overflow-x: hidden;
 }
+::-webkit-scrollbar {
+  width: 0px;
+  height: 0px;
+}
+::-webkit-scrollbar-thumb {
+  background: transparent;
+}
+
 /* global colors  colors  */
 .bg-primary {
   background-color: #1a2a80;

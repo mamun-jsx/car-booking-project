@@ -3,7 +3,7 @@ import { motion } from "motion/react";
 
 export default function ComingSoon() {
   return (
-    <section className="py-16  px-6 bg-light">
+    <section className="py-16 px-6 bg-light">
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-10">
         {/* Left side text */}
         <div className="flex-1">
@@ -34,7 +34,6 @@ export default function ComingSoon() {
           <motion.img
             whileInView={{ opacity: 1, x: 0 }}
             initial={{ opacity: 0, x: 200 }}
-
             transition={{ duration: 0.9 }}
             src={assets.bike_image1}
             alt="Sports Bike"
