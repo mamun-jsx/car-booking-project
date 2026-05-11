@@ -1,12 +1,51 @@
-# React + Vite
+# 🖥️ Car Booking - Client Side
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+The frontend of the Car Booking application is built with **React 19** and **Vite**, focusing on speed, responsiveness, and a premium user experience.
 
-Currently, two official plugins are available:
+## 🚀 Technologies
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **React 19 & Vite:** Modern frontend foundation.
+- **Tailwind CSS 4 & DaisyUI:** Next-gen styling and pre-built components.
+- **TanStack Query:** Efficient data fetching and caching.
+- **Firebase:** Client-side authentication.
+- **Framer Motion:** Smooth UI transitions and micro-interactions.
+- **Axios:** Promise-based HTTP client for API calls.
 
-## Expanding the ESLint configuration
+## 📦 Key Scripts
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- `npm run dev`: Starts the development server.
+- `npm run build`: Builds the app for production.
+- `npm run lint`: Runs ESLint to check code quality.
+- `npm run preview`: Previews the production build locally.
+
+## 📂 Folder Structure
+
+- `src/pages`: Individual page components (Home, Login, Dashboard, etc.).
+- `src/component`: Reusable UI components.
+- `src/hooks`: Custom React hooks for logic reuse.
+- `src/Config`: Configuration files (Firebase, API endpoints).
+- `src/assets`: Images, styles, and static files.
+
+## 🔧 Installation
+
+1. Navigate to the client directory:
+   ```bash
+   cd client
+   ```
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+3. Create a `.env` file and add your Firebase and API configuration:
+   ```env
+   VITE_API_URL=http://localhost:5000
+   VITE_FIREBASE_API_KEY=your_key
+   ...
+   ```
+4. Start the app:
+   ```bash
+   npm run dev
+   ```
+
+---
+[Return to Root README](../README.md)
