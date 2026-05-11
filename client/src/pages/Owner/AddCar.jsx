@@ -5,6 +5,7 @@ import { assets } from "../../assets/assets";
 import axiosInstance from "../../Config/Axios/AxiosIntance";
 import Swal from "sweetalert2";
 import useRole from "../../hooks/useRole";
+import Loading from "../../component/Loading";
 
 const AddCar = () => {
   const [loading, setLoading] = useState(false);
@@ -282,9 +283,7 @@ const AddCar = () => {
 
         {/* Submit */}
         {loading ? (
-          <>
-            <span className="loading loading-spinner text-primary"></span>
-          </>
+          <Loading small message="Please Wait..." />
         ) : (
           <>
             <button className="bg-primary hover:bg-secondary transition-colors text-white flex items-center gap-2 px-5 py-2.5 mt-4 rounded-lg font-medium w-max cursor-pointer">

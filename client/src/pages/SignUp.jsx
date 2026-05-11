@@ -4,6 +4,7 @@ import GoogleButton from "../component/GoogleButton";
 import { AuthContext } from "../Config/Provider/AuthProvider";
 import axiosInstance from "../Config/Axios/AxiosIntance";
 import Swal from "sweetalert2";
+import Loading from "../component/Loading";
 
 //! main jsx function Start
 const SignUp = () => {
@@ -11,9 +12,11 @@ const SignUp = () => {
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const handleSignUp = (e) => {
     e.preventDefault();
+    setLoading(true);
 
     createUser(email, password)
       .then((result) => {
@@ -46,7 +49,8 @@ const SignUp = () => {
                 text: err?.message,
                 // footer: '<a href="#">Why do I have this issue?</a>',
               });
-            });
+            })
+            .finally(() => setLoading(false));
         }
       })
       .catch((error) => {
@@ -56,6 +60,7 @@ const SignUp = () => {
           text: error?.message,
           // footer: '<a href="#">Why do I have this issue?</a>',
         });
+        setLoading(false);
       });
   };
 
@@ -98,12 +103,18 @@ const SignUp = () => {
             onChange={(e) => setPassword(e.target.value)}
           />
 
-          <button
-            type="submit"
-            className="w-full bg-primary pointer text-white py-2 rounded-lg bg-hover transition"
-          >
-            Sign Up
-          </button>
+          {loading ? (
+            <div className="my-4">
+              <Loading small message="Creating Account..." />
+            </div>
+          ) : (
+            <button
+              type="submit"
+              className="w-full bg-primary pointer text-white py-2 rounded-lg bg-hover transition"
+            >
+              Sign Up
+            </button>
+          )}
 
           <p className="text-[14px] my-3 text-center">
             Already have an account?{" "}

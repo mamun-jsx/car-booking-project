@@ -3,16 +3,19 @@ import GoogleButton from "../component/GoogleButton";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../Config/Provider/AuthProvider";
 import Swal from "sweetalert2";
+import Loading from "../component/Loading";
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
   const { loginUser } = useContext(AuthContext); //login function from context
   const location = useLocation();
   const navigate = useNavigate();
   const from = location?.state?.from?.pathname || "/"; //! track user route location and send him to origin
   const handleLogin = async (e) => {
     e.preventDefault(); // prevent page reload
+    setLoading(true);
     try {
       await loginUser(email, password) //* firebase login built in function
         .then((result) => {
@@ -45,6 +48,8 @@ export default function Login() {
           text: `${error.message}`,
         });
       }
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -79,9 +84,15 @@ export default function Login() {
                 onChange={(e) => setPassword(e.target.value)}
               />
 
-              <button type="submit" className="btn bg-primary bg-hover mt-4">
-                Login
-              </button>
+              {loading ? (
+                <div className="mt-4">
+                  <Loading small message="Authenticating..." />
+                </div>
+              ) : (
+                <button type="submit" className="btn bg-primary bg-hover mt-4">
+                  Login
+                </button>
+              )}
               <p className="text-[14px] my-3">
                 New Here ?{" "}
                 <Link

@@ -1,6 +1,7 @@
 import { createContext, useState, useEffect } from "react";
 
 import app from "../firebase.config";
+import Loading from "../../component/Loading";
 
 import {
   createUserWithEmailAndPassword,
@@ -26,39 +27,23 @@ const AuthProvider = ({ children }) => {
   // Register user or create a user
   const createUser = (email, password) => {
     setLoading(true);
-    try {
-      return createUserWithEmailAndPassword(auth, email, password);
-    } finally {
-      setLoading(false);
-    }
+    return createUserWithEmailAndPassword(auth, email, password);
   };
   // login a user with credential
   const loginUser = (email, password) => {
     setLoading(true);
-    try {
-      return signInWithEmailAndPassword(auth, email, password);
-    } finally {
-      setLoading(false);
-    }
+    return signInWithEmailAndPassword(auth, email, password);
   };
   // google Login
   const googleSignIn = async () => {
     setLoading(true);
-    try {
-      return await signInWithPopup(auth, googleProvider);
-    } finally {
-      setLoading(false);
-    }
+    return await signInWithPopup(auth, googleProvider);
   };
   // Observe user state
   useEffect(() => {
     // Subscribe to auth changes
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      if (currentUser) {
-        setUser(currentUser);
-      } else {
-        setUser(null);
-      }
+      setUser(currentUser);
       setLoading(false);
     });
 
@@ -77,11 +62,7 @@ const AuthProvider = ({ children }) => {
   };
   //!  logOutUser
   const logOutUser = () => {
-    try {
-      return signOut(auth);
-    } finally {
-      setLoading(false);
-    }
+    return signOut(auth);
   };
   const authInfo = {
     user, // user state
@@ -93,9 +74,14 @@ const AuthProvider = ({ children }) => {
     logOutUser, // logout user
 
   };
+
+  if (loading) {
+    return <Loading fullPage message="Initializing Safe Wheels..." />;
+  }
+
   return (
     <AuthContext.Provider value={authInfo}>
-      {!loading && children}
+      {children}
     </AuthContext.Provider>
   );
 };
