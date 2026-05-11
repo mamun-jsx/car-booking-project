@@ -143,32 +143,7 @@ const SignUp = () => {
 
             <div className="relative py-2">
               <div className="absolute inset-0 flex items-center"><span className="w-full border-t border-gray-100"></span></div>
-              <div className="relative flex justify-center text-xs uppercase"><span className="bg-white px-2 text-gray-400 font-bold">Quick Demo Access</span></div>
-            </div>
-
-            <div className="grid grid-cols-2 gap-4">
-              <button
-                type="button"
-                onClick={() => {
-                  setEmail("jdoe@gmail.com");
-                  setPassword("Crazyboy#01");
-                }}
-                className="flex items-center justify-center gap-2 py-3 rounded-xl border border-gray-100 hover:border-primary hover:bg-primary/5 transition-all group"
-              >
-                <User className="size-4 text-gray-400 group-hover:text-primary" />
-                <span className="text-xs font-bold text-gray-600 group-hover:text-primary">User</span>
-              </button>
-              <button
-                type="button"
-                onClick={() => {
-                  setEmail("admin@gmail.com");
-                  setPassword("Crazyboy#01");
-                }}
-                className="flex items-center justify-center gap-2 py-3 rounded-xl border border-gray-100 hover:border-secondary hover:bg-secondary/5 transition-all group"
-              >
-                <ShieldCheck className="size-4 text-gray-400 group-hover:text-secondary" />
-                <span className="text-xs font-bold text-gray-600 group-hover:text-secondary">Owner</span>
-              </button>
+              <div className="relative flex justify-center text-xs uppercase"><span className="bg-white px-2 text-gray-400 font-bold">Or continue with</span></div>
             </div>
 
             <GoogleButton />

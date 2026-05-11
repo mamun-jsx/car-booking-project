@@ -105,10 +105,10 @@ const NavBar = () => {
               )}
               {!user && (
                 <Link
-                  to="/signup"
-                  className="btn my-2 btn-primary rounded-full"
+                  to="/login"
+                  className="btn my-2 btn-primary rounded-full px-8 font-bold"
                 >
-                  Signup
+                  Login
                 </Link>
               )}
             </ul>
