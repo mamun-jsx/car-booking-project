@@ -9,6 +9,11 @@ const useRole = () => {
   const [dbUser, setDbUser] = useState();
 
   useEffect(() => {
+    // Reset states when user changes or logs out
+    setIsAdmin(false);
+    setIsOwner(false);
+    setDbUser(null);
+
     const checkRole = async () => {
       if (!user?.email) return;
       try {

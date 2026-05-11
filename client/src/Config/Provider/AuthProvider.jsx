@@ -26,17 +26,14 @@ const AuthProvider = ({ children }) => {
 
   // Register user or create a user
   const createUser = (email, password) => {
-    setLoading(true);
     return createUserWithEmailAndPassword(auth, email, password);
   };
   // login a user with credential
   const loginUser = (email, password) => {
-    setLoading(true);
     return signInWithEmailAndPassword(auth, email, password);
   };
   // google Login
   const googleSignIn = async () => {
-    setLoading(true);
     return await signInWithPopup(auth, googleProvider);
   };
   // Observe user state

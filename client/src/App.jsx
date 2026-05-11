@@ -28,9 +28,8 @@ function App() {
     <>
       {!IsOwner && <NavBar />}
       <Routes>
-        <Route path="*" element={<ErrorPage />} />
-        {!user && <Route path="/login" element={<Login />} />}
-        {!user && <Route path="/signup" element={<SignUp />} />}
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<SignUp />} />
         <Route path="/about-us" element={<AboutUs />} />
         <Route path="/contact-us" element={<ContactUs />} />
         <Route path="/" element={<Home />} />
@@ -48,6 +47,8 @@ function App() {
           <Route path="manage-bookings" element={<ManageBookings />} />
           <Route path="update-user" element={<UpdateUserRole />} />
         </Route>
+        {/* Catch-all for 404 */}
+        <Route path="*" element={<ErrorPage />} />
       </Routes>
       <Footer />
     </>

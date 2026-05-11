@@ -103,6 +103,7 @@ const HomeHeroSection = () => {
         whileInView={{ opacity: 1, x: 0 }}
         initial={{ opacity: 0, x: 100 }}
         transition={{ duration: 1.2, ease: "easeOut" }}
+        viewport={{ once: true }}
         src={assets.main_car}
         alt="car image"
         className="w-full max-w-[400px] md:max-w-[600px] lg:max-w-[800px] object-contain drop-shadow-2xl"
