@@ -7,7 +7,7 @@
 
 A premium, full-stack car booking platform designed for seamless vehicle rentals. Featuring role-based access control, real-time updates, and a modern, responsive UI.
 
-🔗 **Live Demo:** [https://iridescent-crostata-2d702f.netlify.app/](https://iridescent-crostata-2d702f.netlify.app/)
+🔗 **Live Demo:** [https://iridescent-crostata-2d702f.netlify.app/](https://car-rent-amber-mu.vercel.app/)
 
 ---
 
