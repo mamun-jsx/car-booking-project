@@ -21,7 +21,7 @@ const HomeHeroSection = () => {
   };
 
   return (
-    <section className="min-h-[80vh] md:min-h-[90vh] flex flex-col justify-center items-center gap-8 md:gap-14 bg-light text-center px-4 py-12 md:py-20 overflow-hidden">
+    <section className="min-h-[50vh] md:min-h-[40vh] flex flex-col justify-center items-center gap-8 md:gap-14 bg-light text-center px-4 py-12 md:py-20 overflow-hidden">
       {" "}
       <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold text-gray-900 max-w-4xl">
         All Types Of Car On Rent
